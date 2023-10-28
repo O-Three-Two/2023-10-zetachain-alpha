@@ -1,3 +1,8 @@
+## Zetachain Previous Cosmos Audits Explained 
+- Two previous audits of the ``zetacore`` and ``zetaclient`` were performed by Zellic and Halborn.
+- The Halborn audit was recently removed from being online. I had some notes from previously reading it and tried to reconstruct it to the best of my ability.
+- Below is an explanation of all the Cosmos SDK and client vulnerabilities discovered from the previous two audits in sufficient detail to understand them. 
+
 #### Zellic 3.1: Any ZetaSent events are processed regardless of what contract emits them (critical)
 - [Ethermint](https://docs.ethermint.zone/) is an EVM implementation within the Cosmos SDK ecosystem. This particular implementation is essentially the only one used by projects. Zetachain uses Ethermint for the zEVM.
 - To send funds from the zEVM to another chain, a ``ZetaSent`` event is emitted by the EVM by the Connector contract. 
