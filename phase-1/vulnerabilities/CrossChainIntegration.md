@@ -53,3 +53,8 @@
 - Other voting issues: 
     - https://github.com/yearn/yearn-security/blob/master/disclosures/2022-11-01.md
     - https://medium.com/@blockian/striking-gold-at-30-000-feet-uncovering-a-critical-vulnerability-in-q-blockchain-for-50-000-ab335042147b
+
+
+- List of other bridge hacking resources: 
+    - https://medium.com/immunefi/common-cross-chain-bridge-vulnerabilities-d8c161ffaf8f
+    - https://www.certik.com/resources/blog/GuBAYoHdhrS1mK9Nyfyto-cross-chain-vulnerabilities-and-bridge-exploits-in-2022
