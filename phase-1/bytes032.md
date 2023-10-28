@@ -13,7 +13,7 @@ Contrarily, Zetachain's model is intended to break these boundaries; they not on
 
 ### What's the concept of Omni chain and how does it actually differentiate from a bridge/multi chain?
 
-I think a like a bridge is an example of like a multi chain application, right? It works between two different chains. 
+I think of it like a bridge is an example of like a multi chain application, right? It works between two different chains. 
 
 Omnichain, kind of means applications and daps that work across multiple chains simultaneously. Typically, with multi chain apps, the developer might be deploying the same application to multiple chains or similar application, it's almost like they're copy pasting from one place to the next. It's just a series of connected applications. 
 
@@ -99,6 +99,10 @@ So tokens are transferred on Ethereum, but the ZRC20 representation of these tok
 
 So when you're sending ETH on Ethereum, to this address, a contract can swap these tokens on Zetachain to Matic and these meta tokens can be withdrawn on polygon to any address.
 
+Omni chain smart contracts allow for manipulation of native foreign assets, such as Bitcoin, through a single chain Ethereum compatible platform.
+
+Omni chain smart contracts allow for native assets to be orchestrated as if they were on one chain from many chains, including Bitcoin.
+
 
 #### Conclusion
 
@@ -113,6 +117,7 @@ New apps - omnichain contracts
 - The zetacain function is a universal gas asset (you dont pay any other chain assets) - 1 wallet, 1 gas token, any dapp, any network
 - Bridge native assets in a single pool, e.g. DAI from Ethereum or USDC from Arbitrum can exist in a single pool
 - Single deployment?
+- Algo stablecoin using Bitcoin as collateral, with potential for higher interest rates and larger market size. ? :DDD
 
 
 ### Common
