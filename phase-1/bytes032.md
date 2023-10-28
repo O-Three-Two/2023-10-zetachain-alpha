@@ -69,3 +69,9 @@ And then once they all reach consensus on that, they all sign an agreement using
 But it allows them to operate on external chain with external address? Just like they would if it was a single wallet, which gives a lot of flexibility and how they interact. 
 
 But that relying on that TSS model is where a lot of that security comes from, as well as having the multiple groups who are observing these events and reaching consensus versus having one trusted party or one trusted verifier.
+
+
+
+### Common
+
+- [Zetachain vs Axelar vs LayerZero](https://www.reddit.com/r/zetablockchain/comments/12tk65g/messaging_layerzero_axelar_a_key_difference/)
