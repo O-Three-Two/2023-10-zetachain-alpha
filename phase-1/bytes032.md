@@ -14,3 +14,18 @@ I think a like a bridge is an example of like a multi chain application, right? 
 Omnichain, kind of means applications and daps that work across multiple chains simultaneously. Typically, with multi chain apps, the developer might be deploying the same application to multiple chains or similar application, it's almost like they're copy pasting from one place to the next. It's just a series of connected applications. 
 
 Whereas an omni chain application is designed from the ground up to work across multiple chains. So you can kind of deploy your application logic in one place, and interact with assets across multiple chains. That's kind of at a very high level, the idea for Omni chain daps.
+
+
+### How does the Omni chain approach eliminate the need for things like wrapped assets, bridges, you know, streamlining cross chain assets, data transfers?
+
+Zetachain has abstracted most of the complication of this in a way to make it easier for users and easier for developers who don't have to worry about wrapping assets and bridging and that kind of work
+
+The really the novel thing Zetachain does is the ZRC20 token which is kind of an abstraction of a token or native asset on an external chain. 
+
+It allows the developer to interact with that like it would be any ERC20 token.  So if you imagine building a let's say a simple swap application that swapping let's say wrapped Bitcoin for ETH. 
+
+You could build that on ETH right on one EVM blockchain with Zetachain, you would interact with native ETH and native BTC and you would do that just like they were ERC 20 tokens.
+
+But Zetachain is actually handling that native asset externally for you. 
+
+So it makes it a lot simpler for developers to build these things. Meaning there are still cross chain assets and movement involved, but Zetachain manages a lot of that in a more secure, simplified manner.
