@@ -9,6 +9,8 @@ Contrarily, Zetachain's model is intended to break these boundaries; they not on
 
 *Provides interopability between EVM and non EVM*
 
+@bytes032 note: Looks like if the market accepts this proposition its something that would look like TCP/IP?
+
 ### What's the concept of Omni chain and how does it actually differentiate from a bridge/multi chain?
 
 I think a like a bridge is an example of like a multi chain application, right? It works between two different chains. 
@@ -102,6 +104,15 @@ So when you're sending ETH on Ethereum, to this address, a contract can swap the
 
 Existing apps - messaging
 New apps - omnichain contracts
+
+
+
+### "Unique"? features related to Zetachain
+
+- Contracts can be called by ANY? chain, e.g. move bitcoin, ada, eth
+- The zetacain function is a universal gas asset (you dont pay any other chain assets) - 1 wallet, 1 gas token, any dapp, any network
+- Bridge native assets in a single pool, e.g. DAI from Ethereum or USDC from Arbitrum can exist in a single pool
+- Single deployment?
 
 
 ### Common
