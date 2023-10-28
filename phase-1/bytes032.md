@@ -30,6 +30,8 @@ But Zetachain is actually handling that native asset externally for you.
 
 So it makes it a lot simpler for developers to build these things. Meaning there are still cross chain assets and movement involved, but Zetachain manages a lot of that in a more secure, simplified manner.
 
+@dev-101 @vladbochok Imo a huge benefit is that devs don't really have to think about the one way peg or think about converting these things over. Because using this ERC 20 abstraction, they can manage those assets natively without having to worry about that conversion process. It's practically one way peg.
+
 #### ZRC20 example
 
 bytes032: imo this approach strives to solve the issue with fragmented liquidity on different pools on different chains
