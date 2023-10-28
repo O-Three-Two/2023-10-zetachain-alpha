@@ -29,3 +29,9 @@ You could build that on ETH right on one EVM blockchain with Zetachain, you woul
 But Zetachain is actually handling that native asset externally for you. 
 
 So it makes it a lot simpler for developers to build these things. Meaning there are still cross chain assets and movement involved, but Zetachain manages a lot of that in a more secure, simplified manner.
+
+#### ZRC20 example
+
+bytes032: imo this approach strives to solve the issue with fragmented liquidity on different pools on different chains
+
+Imagine you have USDC pool on ETH, USDC pool on BSC, with ZRC20 instead of having to balance individual pools you can just take native USDC on ETH, native USDC on BSC and bounce those two against each other, where any, really any balancing is done by kind of balancing them across chains, instead of doing it multiple times on each individual chain.
