@@ -32,3 +32,24 @@
 - Every input being provided by the user should not verified to ensure there is no trickery occuring. 
 - https://rekt.news/thorchain-rekt/
 - https://medium.com/immunefi/aurora-improper-input-sanitization-bugfix-review-a9376dac046f
+
+#### Event Handling
+- How do we know if an event occurred or not? In most ecosystems, *events* are watched from the blockchain attempting to relay from. 
+- In Zetachain, one of the early findings from Zellic was that the event being emitted from the zEVM was not checking a particular *sender*. This resulted in an arbitrary contract being able to emit events. Other confused deputy problems may be possible as well.
+    - https://www.halborn.com/blog/post/explained-the-qubit-hack-january-2022
+- In Zetachain, another finding was that the same event could be observed twice, resulting in double the funds being sent. 
+- Spoofing, resending, arbitrary dropping are all issues that occur that should be considered. 
+- Block reorganizations can occur. To prevent double spends with this, it's important to ensure that enough blockchain confirmations have occurred to make this impossible. 
+- https://www.halborn.com/blog/post/explained-the-thorchain-hack-july-2021 
+
+#### Voting 
+- When determining if an event occurred, this can be done via proofs (cryptography) or voting. In the case of Zetachain, it's done via voting. 
+- Voting can have many issues that lead to unfair practices. 
+- Ensure that the *weights* are taken into account. 
+- Ensure that users cannot vote twice. An example of this in the Celer network is linked below: 
+    - https://jumpcrypto.com/writing/election-fraud-double-voting-in-celers-state-guardian-network/
+- No malleable keys for duplicate checks occur. This occured on Zetachain already. 
+- Sybil attacks - also known as multiple identity attacks
+- Other voting issues: 
+    - https://github.com/yearn/yearn-security/blob/master/disclosures/2022-11-01.md
+    - https://medium.com/@blockian/striking-gold-at-30-000-feet-uncovering-a-critical-vulnerability-in-q-blockchain-for-50-000-ab335042147b
