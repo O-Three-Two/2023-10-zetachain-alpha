@@ -7,6 +7,8 @@ While the concept of an omni-chain or multi-chain approach isn't new, and others
 
 Contrarily, Zetachain's model is intended to break these boundaries; they not only permit but actively encourage developers to use their platform as a springboard to reach and connect with other chains. Zetachain's goal is to provide a superior experience for both developers and users who navigate the multi-chain landscape, enabling more seamless connectivity and interactions across different blockchain networks.
 
+*Provides interopability between EVM and non EVM*
+
 ### What's the concept of Omni chain and how does it actually differentiate from a bridge/multi chain?
 
 I think a like a bridge is an example of like a multi chain application, right? It works between two different chains. 
