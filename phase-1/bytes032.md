@@ -70,6 +70,36 @@ But it allows them to operate on external chain with external address? Just like
 
 But that relying on that TSS model is where a lot of that security comes from, as well as having the multiple groups who are observing these events and reaching consensus versus having one trusted party or one trusted verifier.
 
+### Building?
+
+There are two ways you can build on Zetachain:
+
+- Cross chain messaging, which is one of the more progressive ways of bringing interoperability to existing applications, especially if you're trying to drive interoperability among just a few chains.
+- Omni chain smart contracts. 
+
+
+bytes032: What's the difference between the two and how are Omnichain contracts different to "classic" contracts that everybody is familiar with?
+
+#### Cross chain messaging
+
+With cross chain messaging, you have a contract that uses Zetacain AP and you use it to deploy contract(contracts) on to two or more connected chains. What you get out of this is you can trigger a cross chain message, send from one chain to another, that allows you to transfer any kind of arbitrary data. 
+You can also transfer value, NFT's and whatever you want. So it's a very general but incredibly useful tool to connects already existing applications or existing daps. So you can augment your single chain dApp to become multi chain. 
+
+
+
+#### Omnichain contracts 
+
+It's a contract that you deploy onto Zetachain, instead of deploying it to different chains, you deploy it once.  It essentially has the superpowers to manage assets on different chains. When a user sends tokens on Ethereum to specific address, they also provide some data about which contract to call on Zetachain. Then these tokens get essentially transferred to this contract and it can process these tokens. 
+
+So tokens are transferred on Ethereum, but the ZRC20 representation of these tokens is passed on to the contract on Zetachain. And this ZRC20 standard is an extension of the ERC 20 which extends it in a way that allows contracts to withdraw tokens.
+
+So when you're sending ETH on Ethereum, to this address, a contract can swap these tokens on Zetachain to Matic and these meta tokens can be withdrawn on polygon to any address.
+
+
+#### Conclusion
+
+Existing apps - messaging
+New apps - omnichain contracts
 
 
 ### Common
