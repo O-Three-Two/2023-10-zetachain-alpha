@@ -46,3 +46,6 @@ bytes032: If you have an application, it's running, why would you bother coming 
 I think any, any application, you were thinking about making multi chain could be omnichain? And by deploying and interacting with the the main logic in one location, it makes the operations much easier. You're managing one application instead of managing five applications, right? 
 
 And it also allows you to kind of streamline the user experience a little bit, the user may not need to jump between four or five different chains in order to do something. So that's really why they move to omni chain approach
+
+
+TODO: They support message passing. What is message passing?
