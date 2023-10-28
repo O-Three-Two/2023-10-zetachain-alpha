@@ -35,3 +35,14 @@ So it makes it a lot simpler for developers to build these things. Meaning there
 bytes032: imo this approach strives to solve the issue with fragmented liquidity on different pools on different chains
 
 Imagine you have USDC pool on ETH, USDC pool on BSC, with ZRC20 instead of having to balance individual pools you can just take native USDC on ETH, native USDC on BSC and bounce those two against each other, where any, really any balancing is done by kind of balancing them across chains, instead of doing it multiple times on each individual chain.
+
+
+### How to implement the Omni chain functionality into existing smart contracts?
+
+
+bytes032: If you have an application, it's running, why would you bother coming in and looking at making it omnichain?
+
+
+I think any, any application, you were thinking about making multi chain could be omnichain? And by deploying and interacting with the the main logic in one location, it makes the operations much easier. You're managing one application instead of managing five applications, right? 
+
+And it also allows you to kind of streamline the user experience a little bit, the user may not need to jump between four or five different chains in order to do something. So that's really why they move to omni chain approach
