@@ -80,7 +80,9 @@ Omni chain smart contracts allow for manipulation of native foreign assets, such
 
 Omni chain smart contracts allow for native assets to be orchestrated as if they were on one chain from many chains, including Bitcoin.
 
-You can find some examples [here](https://github.com/zeta-chain/example-contracts)
+- [Example Omnichain Contracts](https://github.com/zeta-chain/example-contracts)
+- [Common pitfalls for Cosmos Contracts](https://secure-contracts.com/not-so-smart-contracts/cosmos/index.html)
+- [A developer’s guide to building secure applications on Cosmos](https://www.zellic.io/blog/exploring-cosmos-a-security-primer)
 
 
 #### Why would you use omni chain contracts?
