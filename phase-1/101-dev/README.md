@@ -97,14 +97,24 @@ Also allows you to kind of streamline the user experience a little bit, the user
 
 So, in a summary omni chain smart contracts are different from cross chain messaging in that they allow for transferring arbitrary data and value between multiple connected chains, while cross chain messaging is limited to transferring data and value within a single chain.
 
-#### Use cases
-
-##### Cross-chain swaps
-
-TBD
-
-##### Cross-chain accounts
-
-TBD
+#### Further reading
+- [Building with Zetachain](https://www.zetachain.com/docs/developers/overview/)
+- [Omnichain Contract Template](https://www.zetachain.com/docs/developers/template/)
+- [Building Omnichain contracts](https://www.zetachain.com/docs/developers/omnichain/overview/)
+- [Integrating existing applications](https://www.zetachain.com/docs/developers/cross-chain-messaging/examples/hello-world/)
 
 
+### Similar protocols
+
+Besides everything mentioned, Zetachain is similar to any other Ethermint enabled Cosmos chain.
+
+Ethermint enabled just means that there's two chains, one is the actual cosmos chain, which is zetachain in this case.
+
+The other is an EVM compatible chain, which is called zEVM.
+
+The most notable similar example is the Cronos chain, where Cronos chain is the EVM compatibility layer chain (aka the zEVM), and the crypto.com chain is the actual cosmos chain behind the Cronos chain.
+
+#### Further reading
+- [Cosmos SDK](https://docs.cosmos.network/v0.46/#)
+- [Ethermint](https://docs.ethermint.zone/)
+- [Awesome Cosmos](https://github.com/cosmos/awesome-cosmos)
