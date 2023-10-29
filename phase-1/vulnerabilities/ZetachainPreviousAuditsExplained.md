@@ -45,7 +45,7 @@ Since the transaction is sent and a refund is provided, this results in a *doubl
 - TODO...
 
 
-#### Zellic 3.5/Halborn: Not waiting for minimum number of block confirmations results in double spend (critical)
+#### Zellic 3.5/Halborn 04: Not waiting for minimum number of block confirmations results in double spend (critical)
 - Blockchains sometimes have soft forks that occur from different parts of the network. By default, the deepest fork is taken to be the real one. This is called a blockchain *reorg*. 
 - The Zetachain was waiting for a single block confirmation before the transaction was considered valid. 
 - If a reorg occurred then a transaction could happen on fork A observed by the relayer then a reorg could occur, removing the transaction. 
@@ -106,39 +106,139 @@ func isDuplicateSigner(creator string, signers []string) bool{
 - Since the amount of validators cannot be reached, the voting will never pass, since it requires a full consensus. 
 
 
-#### Halborn: Zeta Supply does not track assets correctly (critical) 
+#### Halborn 01: Zeta Supply does not track assets correctly (critical) 
 - In the [whitepaper](https://www.zetachain.com/whitepaper.pdf), specific mention is made to keeping the *supply* of Zeta at a consistent amount. This is because the only native token on Zetachain is the ZETA token. If this could be inflated on one blockchain then used on another, then the consequences would be significant. 
 - The system uses a *mint and burn* model for keeping track of Zeta between chains. Keeping these perfectly in check is important. 
 - Possible to inflate amount of total Zeta via simple calls. By transfering funds from one EVM to another, one transfering chain does not *burn* the tokens. Having too many tokens in circulation would break the Uniswap pools used for trading and other security assumptions. 
 
-#### Halborn: Lack of mechanism to limit the supply of zeta (high) 
+#### Halborn 02/12: Integers Overflows/Truncations Cause Havoc (critical)
+- Go is suspectible to number related vulnerabilities like integer overflows, underflows, sign changes and truncation.
+- Multiple occurrences of overflows and signedness issues were discovered on the project.
+- 02: Large block heights can overflow within the ``EndBlocker`` when changing the gas price of stuck transactions. Because this overflow occurs, the pending transactions will be increased by 20%, resulting in a network outage.
+- 12: With very large block heights, a crash will occur within the querying (GRPC) of blockchain state. 
+- 21: Bitcoin transaction nonces can overflow. This leads to the transactions going unprocessed. 
+
+#### Halborn 03: Possible Division by Zero could cause chain halt due to panic (critical)
+- In the ``emissions`` module, the ``Quo`` method is used to divide by the bonding ratio.
+- The bounding ratio may return 0 in some cases.
+- If this occurs, a panic will occur, halting the chain.
+
+#### Halborn 05: Lack of mechanism to limit the supply of zeta (high) 
 - In the [whitepaper](https://www.zetachain.com/whitepaper.pdf), specific mention is made to keeping the *supply* of Zeta at a consistent amount. This is because the only native token on Zetachain is the ZETA token. If this could be inflated on one blockchain then used on another, then the consequences would be significant. 
 - If an implementation flaw is found that causes this issue, then there is no way for the other blockchains to know. According to the whitepaper, a chainlink keeper should post the total amount on every chain to ensure that the *supply* stays valid at all times. 
 - The chainlink keeper was not (and has not still) been implemented. So vulnerabilities could effect the supply of Zeta to wreck havoc on the ecosystem. 
 
-#### Halborn: Integers Overflows Cause Havoc (high)
-- Go is suspectible to number related vulnerabilities like integer overflows, underflows, sign changes and truncation. Multiple occurrences of overflows cause issues in the ecosystem. 
-- A large parameter (TODO) within the gas cost estimation process that is voted on leads to an overflow. Because of a comparison always failing from this, the gas cost goes up by 20% over and over again until it is unpayable. 
-- Bitcoin transaction nonces can overflow. This leads to the transactions going unprocessed. 
-- With very large block heights, a crash will occur within the querying (GRPC) of blockchain state. 
+#### Halborn 06: Price Manipulation and Denial of Service via UpdatePrices Function (high) 
+- The ``UpdatePrices()`` function is used to check whether a sufficient gas fee has been paid.
+- However, the check occurs *after* state changing operations have occurred. Most notably, the price of the gas could be affected by the modifications. Checks after state modifications are very bad.
+- The message will eventually revert because of not having enough gas. However, going this deep into the transaction to fail is less than ideal.
+- According to the report, an attacker can succeed on a call to ``UpdatePrices()`` to modify the prices in the Cosmos environment. However, we're extremely confused from this because the check *is* valid just late. Hence, the state changes should revert.
 
-#### Halborn: Sybil attack risk due to use of median gas votes for setting gas price (medium)
-- The gas price of networks is determined by the validators. In particular, they check various locations to vote on the gas price. 
-- The voting process takes the *median* gas price. The *median* is the center of the list and NOT the average. 
-- This results in massive changes in gas price. For instance, if the sent in prices are 1,2,3,200,300, the price would be 3. However, if a new vote came in, the price could rise to 200. 
-- Since the average is not being used and validator power is not considered, this is vulnerable to sybil attacks as well. An attacker with control over multiple low power validators could deeper influence the vote by adding in large gas prices. 
+#### Halborn 07: Error Condition for Key Signing is Unchecked 
+- The function ``TestKeysign()`` was used for signature verification is some places. 
+- The return value of this was not always checked within the ``zetaclient``. 
+- As a result, an invalid signature would get flagged as invalid but execution would continue anyway as if the signature was valid.
 
-#### Halborn: Iteration over maps - non-determinims (medium) 
+#### Halborn 08: Iteration over maps - non-determinims (medium) 
 - Consensus is the agreement of a state in a blockchain. It is important for the good being ran within a blockchain to be *deterministic* so that the same point can always be reached. 
 - In Go, iterating over maps is known to be different on different versions of Go. Additionally, in newer versions, this is [intentionally randomized](https://stackoverflow.com/questions/9619479/go-what-determines-the-iteration-order-for-map-keys). 
 - If the ordering of iterating over a map will change the state of a blockchain, then it's a source of *non-determinism*. This would result in a chain halt as the validators could not come to a conclusion on the state of the blockchain.
 
-#### Halborn: Error condition for key signing is unchecked
-- The function ``TestKeysign()`` was used for signature verification is some places. 
-- The return value of this was not always checked. 
-- As a result, an invalid signature would get flagged as invalid but execution would continue anyway. 
+#### Halborn 09: Sybil attack risk due to use of median gas votes for setting gas price (medium)
+- The gas price of networks is determined by the validators. In particular, they check various locations to vote on the gas price. 
+- The voting process takes the *median* gas price. The *median* is the center of the list and NOT the average. 
+- This results in massive changes in gas price. For instance, if the sent in prices are 1,2,3,200,300, the price would be 3. However, if a new vote came in, the price could rise to 200 drastically.
+- Since the average is not being used and validator power is not considered, this is vulnerable to sybil attacks as well. An attacker with control over multiple low power validators could deeper influence the vote by adding in large gas prices. Besides sybil attacks, *collusion** could occur between validators as well.
+- The recommended fix for this was to use a Time Weighted Average Price (TWAP). However, this was not implemented.
 
+#### Halborn 10: Malicious Gas Price Voting - Denial of Service by setting large gas prices for evm networks (medium)
+- The gas price of networks is determined by the validators. In particular, they check various locations to vote on the gas price. 
+- Validators can collude to privide gas prices that are too high for the network, resulting in a network shutdown.
+- The recommended fix was to impose a *cap* on the gas price, which was implemented.
+
+#### Halborn 11:  Malicious Gas Price Voting - Denial of Service by setting gas prices for bitcoin (medium)
+- The gas price of networks is determined by the validators. In particular, they check various locations to vote on the gas price. 
+- The ``zetaclient`` updates the price of gas for Bitcoin by default every 5 seconds which is the *reset* interval. Theoretically, any of the validators can vote on a gas price at any point though.
+- An attacker who *races* this to get their numbers posted and posts them *very* low will create a transaction that will not get processed by any miners.
+- Additionally, 
+
+#### Halborn 13: Reliance on UniswapV2 Pools for Prices Exposes Zetachain to price manipulation risk  (low) 
+- To go from one token to ZETA, UniswapV2 pools are created within the EVM ecosystems.
+- UniswapV2 is known to be vulnerbale to various security risks, such as frontrunning, price manipulation and depegging of stablecoins.
+- The recommended fix was to use UniswapV3 instead but this was not done.
+
+#### Halborn 14: Arbitrary Minting of Zeta via MintZetaToEVMAccount Function (low)
+- The function ``MintZetaToEVMAccount`` is used for transfering ZETA from other chains to the zEVM.
+- When an error occurs in this function, the protocol still returns a valid state rather than reverting. As a result, the minted tokens are still there, sresulting in an increase in supply.
+
+#### Halborn 16: Use of Vulnerable Cosmos SDK Version (low)
+- Versions 0.46.10 and below are suspectible to a denial of service attack.
+- Since this version of the SDK is being used by Zetachain, they are also vulnerable to the attack.
+
+#### Halborn 17: ValidateBasic incomplete for some message types
+- The ``ValidateBasic()`` function is used for verifying that incoming protobuf message is valid.
+- There are cases where validation is not strict enough, leading to invalid inputs getting through to the protocol.
+
+## Smart Contract Audits 
+
+#### Halborn 04 - ZRC20 Lacks Resistance to ERC20 Race Condition Issue 
+- There is a well known [frontrunning problem](https://ethereum.stackexchange.com/questions/93717/how-can-we-stop-front-running-for-approve) within the ``approve()`` function for the ERC20 standard.
+- The ZRC20 specification is vulnerable to this.
+- This was solved by implementing the ``increaseAllowance`` and ``decreaseAllowance`` as well.
+
+#### Peckshield 1/Quantum Brief 1/Halborn 01/Halborn 02: Accommodation of Non-ERC20-Compliant Tokens (low)
+- Any ERC20 token is supported. Since some of these are deflationary tokens or non-compliant tokens, issues can occur.
+- Use ``safe`` variant of functions to prevent issues.
+
+#### Peckshield 2: Trust Issue of Admin Keys (medium) - invalid
+- The ``tssAddress`` allows for the updating of important values across chain, such as the zeta supply and more.
+- The authors claim this to be a *centralization risk*.
+- However, the TSS address is a decentralized address with all of the validators owning a small bit of the key. So, I don't believe this finding is valid.
+
+#### Verdise 1/2: Possible Event Reordering via Reentrancy in getEthFromZeta/getZetaFromToken
+- There are two reentrance sinks within the ``getEthFromZeta()`` and ``getZetaFromToken()`` functions via a standard Solidity fallback or a malicious ERC20 token.
+- This could allow for the *reordering* of events within the system, since the event is emitted *after* the call. This violates the CEI principle.
+- The impact of this on the wider ecosystem is unknown though.
+
+#### Halborn 05: Insecure Use of Tx.Origin in the Send Function 
+- When emitting an event, the ``tx.origin`` is used for the *receiver* of the tokens across chain.
+- ``msg.sender`` is the preferred way to do this, since ``tx.origin`` is vulnerable to phishing attacks.
+- This issue was not fixed since a user would need to do this to themselves. 
+
+#### Halborn 09: Missing slippage/min-return check on crosschain call function
+- ``minAmountOut`` is a way to prevent a user from getting very few tokens for what they paid for.
+- The act of the price changing from underneath the user is called *slippage*.
+- The contracts do not have slippage protections when going cross chain.
+- An attacker may *sandwich* attack a user to get a profit.
+- This issue was not resolved.
+
+## Denial of Service Testing
+#### Halborn 01: DoS By Issuing Large Number of Cross Chain Swaps (critical)
+- Sending 10-25 transactions at once from EVM compatiable chains caused issues within the network.
+- The root cause of this was never found by the auditors. But, there were many *pending* transactions in the queue for a long time.
+
+
+#### Halborn 02: Loss of Funds Due to Incorret Gas Price Listing (critical)
+- To transfer assets across networks a user deposits a balance of the supported token to the ``connector`` contract.
+- The node will read the deposti and issue the corresponding asset.
+- On top of this, a user must deposit enough to cover the gas costs.
+- However, the *expected* gas cost is not the same between the connector and the RPC API.
+- If the deposit does not reach the expected gas price, the users funds are lost.
+- The solution was to make the different locations consistent on the pricing to prevent this from occurring.
+
+#### Halborn 03: Loss of Funds due to illiquid uniswap gas pools (medium)
+- To transfer assets across the Zetachain network, a user deposits a balance of the supported token into the connector. This will then deposit a wrapped version of this.
+- The asset is paired with a UniswapV2 pool, which determines the price of the token.
+- If the pool lacks liquidity, then ``getAmountsIn``` can revert. This results in users not being able to send funds cross chain.
+
+#### Halborn 04: Possible Network Congestion due to ecosystem incentives (low)
+- There is no transaction ordering in the default version of Cosmos.
+- So, when big events are about to occur, network spamming is performed to make sure that a transaction gets through.
+- This results in network congestion, especially on other chains like Osmosis and Juno.
+- The recommended fix was to use ``mev-tendermint`` to allow for transaction ordering by tipping. This was not implemented though.
 
 - Resources for this: 
-    - Zellic: https://drive.google.com/file/d/1TjLkNn9MobjGTupukJBxnpxr0DKvj_6V/view
-    - Halborn: https://drive.google.com/file/d/1F7RHWukeEcjUrA5P2BS3AYsttjYvQaw8/view?usp=sharing&utm_source=immunefi
+    - Zellic Node: https://drive.google.com/file/d/1TjLkNn9MobjGTupukJBxnpxr0DKvj_6V/view
+    - Halborn Node: https://drive.google.com/file/d/1323iwH34kOqGzBZIz4iX-Qfo8ACzomNc/view
+    - Peckshield Smart Contract: https://drive.google.com/file/d/1cuWzLPjobQGafYLaVPZAHvyXTMOo0zbw/view
+
