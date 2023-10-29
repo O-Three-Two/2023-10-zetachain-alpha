@@ -57,46 +57,107 @@ You can think of it like an abstraction of a token or native asset on an externa
 
 In a broad sense, ZRC-20 tokens are an expansion of the common ERC-20 tokens present in the Ethereum ecosystem. 
 
-However, the ZRC-20 tokens have the additional capability of managing assets on all chains connected to ZetaChain. 
+**Characteristics:**
 
-**Any** **fungible** token may be represented on ZetaChain as a ZRC-20 and managed as if it were any other fungible token, including Bitcoin, Dogecoin, ERC-20 counterparts on other chains, gas assets on other chains, and so on (like an ERC-20)
+- ZRC-20 tokens are an enhancement of Ethereum's ERC-20 standard.
+- They can manage assets on all chains connected to ZetaChain.
+- ZRC-20 can represent any fungible token, including those from other chains (e.g., Bitcoin, Dogecoin, ERC-20 tokens on other networks), and various chain-specific gas assets.
+
+**Technical Interface:**
+
+- ZRC-20 is based on the ERC-20 standard with three additional functions and events for handling Cross-Chain Transactions (CCTXs).
+- The interface includes typical ERC-20 functions such as totalSupply, balanceOf, transfer, etc., with additional functions like deposit, burn, withdraw, and associated events for cross-chain operations.
+- IZRC20 and zContract interfaces specify these additional functionalities.
+
+**Functionality:**
+
+- Deposit: Users can send assets to ZetaChain's TSS address on a connected chain. The deposit function is triggered, and the deposited assets are credited to the depositor’s address. If a transaction message contains data, DepositAndCall is invoked to forward this data to a target contract on the zEVM.
+- Withdraw: Similar to the transfer function but involves burning the token amount and triggers a Withdrawal event. This leads to a CCTX, enabling the movement of tokens out of ZetaChain.
 
 
 ### How do you build on Zetachain?
 
 #### Cross chain messaging (for existing applications)
 
-This would happen with cross chain messaging. 
+**Concept & Deployment:**
 
-You have a contract that uses Zetacain API and you use it to deploy contract(contracts) on to two or more connected chains. 
+- Cross-chain message passing involves deploying CCM-enabled contracts on different blockchains.
+- These contracts can send arbitrary data and value between each other.
 
-What you get out of this is you can trigger a cross chain message, send from one chain to another, that allows you to transfer any kind of arbitrary data. 
+**Functioning:**
 
-You can also transfer value, NFT's and whatever you want. So it's a very general but incredibly useful tool to connects already existing applications or existing daps. So you can augment your single chain dApp to become multi chain.
+- Users interact with CCM-enabled contracts on any connected chain.
+- These contracts use a Connector API to send messages.
+- ZetaChain acts as a relay, forwarding these messages to the intended destination chain.
+- At the destination, another CCM-enabled contract receives and processes the message via the Connector API.
 
-You can find some examples [here](https://www.zetachain.com/docs/developers/cross-chain-messaging/overview/)
+**Data Handling & State Management:**
+The system manages the state across various CCM-enabled contracts on different chains.
+CCM is suitable for applications requiring unidirectional, asynchronous interactions and does not require a unified state.
+
+**Advantages:**
+
+- Versatility: CCM can handle any data type, leaving data processing to the respective contracts.
+- General-Purpose Utility: CCM is a robust solution for adding cross-chain features to existing applications.
+- Existing Liquidity Usage: It can utilize existing liquidity (like Uniswap pools) on various chains. Transactions involve burning/minting ZETA tokens through ZetaChain, - which may be more complex and gas-intensive but doesn't depend on ZetaChain's own liquidity.
+- Secure Value Transfers: By using ZETA burn/mint functions, it enables value transfer applications without the need to bridge or wrap assets, reducing user risk.
+
+**Usage Considerations:**
+
+- CCM approach might involve more transactions and higher gas costs compared to other methods.
+- It's an effective method for applications where complex, chain-specific transactions and states are not central concerns.
 
 #### Omni chain contracts (for new applications)
 
-This would happen with omnichain contract. But what's a Omnichain contract?
+##### Overview:
 
-It's a contract that you deploy onto Zetachain, instead of deploying it to different chains, you deploy it once.  
+**Concept & Deployment:**
 
-It could be any contract that is currently deployed on Ethereum, but with very minimal changes. 
+- Omnichain contracts are a type of smart contract deployed on ZetaChain.
+- Only one deployment on ZetaChain is required; no separate contracts are needed on connected blockchains.
+- It can be called from any connected chain
 
-It essentially has the superpowers to manage assets on different chains. When a user sends tokens on Ethereum to specific address, they also provide some data about which contract to call on Zetachain. Then these tokens get essentially transferred to this contract and it can process these tokens. 
+**Functionality:**
+- For a contract to be considered omnichain it must inherit from the zContract interface and implement the onCrossChainCall function.
+- Users can transfer assets or assets with a message to a ZetaChain address using a Threshold Signature Scheme (TSS).
+- Transfers can either:
+  - Make the asset available to the omnichain contract, or
+  - Trigger the omnichain contract with the included message data if both asset and message are sent.
 
-So tokens are transferred on Ethereum, but the ZRC20 representation of these tokens is passed on to the contract on Zetachain. And as mentioned earlier, the ZRC20 standard is an extension of the ERC 20 which extends it in a way that allows contracts to withdraw tokens.
 
-So when you're sending ETH on Ethereum, to this address, a contract can swap these tokens on Zetachain to Matic and these meta tokens can be withdrawn on polygon to any address.
+**Token Representation & Asset Transfers:**
 
-Omni chain smart contracts allow for manipulation of native foreign assets, such as Bitcoin, through a single chain Ethereum compatible platform.
+- Assets transferred to a TSS address are represented as ZRC-20 tokens, an extension of ERC-20.
+- Omnichain contracts support:
+  - Transfer of native gas assets (e.g., ETH, BNB, MATIC) across chains.
+  - Transfer of ERC-20 tokens across chains.
 
-Omni chain smart contracts allow for native assets to be orchestrated as if they were on one chain from many chains, including Bitcoin.
+**Advantages:**
+- Simplifies integration with existing applications like Uniswap, Curve, Aave, etc., through minimal modifications to support ZRC-20.
+- Able to support "platforms" like Bitcoin or Dogecoin, which lack native smart contract functionality.
+- Generally, less gas-intensive than other methods due to the lack of logic/state processing on foreign chains.
+- Enables direct, single-step trading of native assets without bridges or wrapping.
+- Exception handling is streamlined, as interactions are confined to standard ERC-20/contract actions.
 
+
+**Key Features:**
+
+- Entire dApp state can be managed within a single omnichain contract.
+- Simplifies trading and interaction steps, enhancing user experience and efficiency.
+- Cost-effective in terms of gas usage compared to other message-passing methods.
+
+
+
+
+
+##### 
+
+Further reading:
 - [Example Omnichain Contracts](https://github.com/zeta-chain/example-contracts)
 - [Common pitfalls for Cosmos Contracts](https://secure-contracts.com/not-so-smart-contracts/cosmos/index.html)
 - [A developer’s guide to building secure applications on Cosmos](https://www.zellic.io/blog/exploring-cosmos-a-security-primer)
+
+
 
 
 #### Why would you use omni chain contracts?
@@ -122,13 +183,19 @@ So, in a summary omni chain smart contracts are different from cross chain messa
 - [Omnichain Contract Template](https://www.zetachain.com/docs/developers/template/)
 - [Building Omnichain contracts](https://www.zetachain.com/docs/developers/omnichain/overview/)
 - [Integrating existing applications](https://www.zetachain.com/docs/developers/cross-chain-messaging/examples/hello-world/)
+- [Top 5 security vulnerabilities Cosmos Developers need to watch out for ](https://www.halborn.com/blog/post/top-5-security-vulnerabilities-cosmos-developers-need-to-watch-out-for)
+
+
+### Architecture
+
+
 
 
 ### Similar protocols
 
 Besides everything mentioned, Zetachain is similar to any other Ethermint enabled Cosmos chain.
 
-Ethermint enabled just means that there's two chains, one is the actual cosmos chain, which is zetachain in this case.
+Ethermint enabled just means that there's two chains, one is the actual cosmos chain, which is Zetachain in this case.
 
 The other is an EVM compatible chain, which is called zEVM.
 
