@@ -35,9 +35,23 @@ Zetachain has abstracted most of the complication of this in a way to make it ea
 
 All of that happens thanks to the ZRC20 token, which is an abstraction of a token or a native asset on an external chain.
 
+Due to the fact that on Zetachain, there are no wrapped coin, you're actually getting the original asset on the new blockchain if you're swapping. Meaning, assets are never at risk in their system.
+
+##### How does that work and why is this important?
+
+When you're transferring value, instead of locking assets in a vault like in Wormhole, or the Ronin incident, and then having some synthetic asset on the other destination that's backed by that's leaving all of that vault at risk. 
+
+For Zetachain, it looks more like a two sided swap. You would swap X for data that's burned, and then on the destination that's minted, and then traded for your target asset.
+
+However, from a user's point of view it's really just all that's kind of managed in the background by app developers and zeta chain. 
+
+So to user, all you're doing is just sending a transaction, and you get the result.
+
+There is no wrapped coin and you're actually getting the original asset on the new blockchain if you're swapping.
+
 #### ZRC20
 
-The omnichain smart contract platform from ZetaChain includes the [ZRC-20](https://www.zetachain.com/docs/developers/omnichain/zrc-20/) token standard is based on ERC-20.
+The staple of Zetachain's omnichain smart contract platform is the novel [ZRC-20](https://www.zetachain.com/docs/developers/omnichain/zrc-20/) token standard, based on ERC-20.
 
 You can think of it like an abstraction of a token or native asset on an external chain.
 
@@ -95,6 +109,10 @@ You're managing one application instead of managing five applications, right?
 
 Also allows you to kind of streamline the user experience a little bit, the user may not need to jump between four or five different chains in order to do something.
 
+#### TBD
+
+ when you're transferring value, instead of locking assets in a vault like in the wormhole, or recent Ronin incident, and then having some synthetic asset on the other destination that's backed by that leaving all of that vault at risk. For us, it looks more like a two sided swap. So you would swap X for data that's burned, and then on the destination that's minted, and then traded for your target asset. But to a user, it's really just all that's kind of managed in the background by app developers and zeta chain. So to user, all you're doing is just sending a transaction, and you get the result. What, whether that's interacting with a smart contract, sending data, transferring value. So often, it's super simple from a user standpoint, and then yeah, and then we just have like a really seamless developer experience, that does not put much of the security burden or development burden on them. While at the same time, we just have kind of the infinite creativity, ceiling of a general smart contract platform.
+
 #### Summary
 
 So, in a summary omni chain smart contracts are different from cross chain messaging in that they allow for transferring arbitrary data and value between multiple connected chains, while cross chain messaging is limited to transferring data and value within a single chain.
@@ -117,6 +135,11 @@ The other is an EVM compatible chain, which is called zEVM.
 The most notable similar example is the Cronos chain, where Cronos chain is the EVM compatibility layer chain (aka the zEVM), and the crypto.com chain is the actual cosmos chain behind the Cronos chain.
 
 #### Further reading
-- [Cosmos SDK](https://docs.cosmos.network/v0.46/#)
 - [Ethermint](https://docs.ethermint.zone/)
-- [Awesome Cosmos](https://github.com/cosmos/awesome-cosmos)
+- [Cosmos Developer Portal](https://tutorials.cosmos.network)
+- [Cosmos SDK](https://docs.cosmos.network/)
+- [IBC](https://ibc.cosmos.com/)
+- [CometBFT](https://docs.cometbft.com/)
+- [Cosmos Hub](https://hub.cosmos.network/)
+- [CosmWasm](https://docs.cosmwasm.com/docs/1.0/)
+- [Cosmology](https://cosmology.tech/learn)
