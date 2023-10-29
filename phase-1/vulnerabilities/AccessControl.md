@@ -7,5 +7,5 @@
 - In Astroport, there was a message for sensitive configuration parameters for an AMM. This was not backed by access control, allowing anybody to change the settings: 
     - https://github.com/astroport-fi/astroport-audits/blob/main/halborn/Astroport_fi_AMM_Protocol_CosmWasm_Smart_Contract_Security_Audit.pdf
 - Other examples: 
-    - 88mph Function Initialization: https://medium.com/immunefi/88mph-function-initialization-bug-fix-postmortem-c3a2282894d3
+    - User can reset circuit breaker on unintended modules: https://hackerone.com/reports/2120609
     - Enzyme Finance Missing Privilege Check Bugfix Review: https://medium.com/immunefi/enzyme-finance-missing-privilege-check-bugfix-review-ddb5e87b8058
