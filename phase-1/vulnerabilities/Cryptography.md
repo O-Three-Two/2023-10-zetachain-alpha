@@ -6,6 +6,7 @@
     - A clasic example is ECDSA:
     - There are always two valid points on the curve on ECDSA. Ensuring that only *one* of them is valid is important. 
     - https://github.com/kadenzipfel/smart-contract-vulnerabilities/blob/master/vulnerabilities/signature-malleability.md
+    - GoEthereum Signature malleability : https://github.com/ethereum/go-ethereum/issues/27802 
 - **Replay attacks** are when a signature or proof is sent multiple times.
     - https://medium.com/immunefi/polygon-double-spend-bug-fix-postmortem-2m-bounty-5a1db09db7f1
 - **Siganture validity**. Just ensuring that all signatures passed in are valid and can be mapped back to the proper user. 
