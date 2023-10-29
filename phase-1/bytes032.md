@@ -2,37 +2,6 @@
 
 @bytes032 note: Looks like if the market accepts this proposition its something that would look like TCP/IP?
 
-### What's the concept of Omni chain and how does it actually differentiate from a bridge/multi chain?
-
-I think of it like a bridge is an example of like a multi chain application, right? It works between two different chains. 
-
-Omnichain, kind of means applications and daps that work across multiple chains simultaneously. Typically, with multi chain apps, the developer might be deploying the same application to multiple chains or similar application, it's almost like they're copy pasting from one place to the next. It's just a series of connected applications. 
-
-Whereas an omni chain application is designed from the ground up to work across multiple chains. So you can kind of deploy your application logic in one place, and interact with assets across multiple chains. That's kind of at a very high level, the idea for Omni chain daps.
-
-A key difference between ZetaChain and pure messaging solutions such as LayerZero and Axelar is that it supports Omnichain Smart Contracts which can orchestrate assets/data on all chains, including non-smart contract solutions like Bitcoin and Dogecoin, on top of its messaging capabilities.
-
-
-### How does the Omni chain approach eliminate the need for things like wrapped assets, bridges, you know, streamlining cross chain assets, data transfers?
-
-Zetachain has abstracted most of the complication of this in a way to make it easier for users and easier for developers who don't have to worry about wrapping assets and bridging and that kind of work
-
-The really the novel thing Zetachain does is the ZRC20 token which is kind of an abstraction of a token or native asset on an external chain. 
-
-It allows the developer to interact with that like it would be any ERC20 token.  So if you imagine building a let's say a simple swap application that swapping let's say wrapped Bitcoin for ETH. 
-
-You could build that on ETH right on one EVM blockchain with Zetachain, you would interact with native ETH and native BTC and you would do that just like they were ERC 20 tokens.
-
-But Zetachain is actually handling that native asset externally for you. 
-
-So it makes it a lot simpler for developers to build these things. Meaning there are still cross chain assets and movement involved, but Zetachain manages a lot of that in a more secure, simplified manner.
-
-Imo a huge benefit is that devs don't really have to think about the one way peg or think about converting these things over. Because using this ERC 20 abstraction, they can manage those assets natively without having to worry about that conversion process. It's practically one way peg.
-
-#### ZRC20 example
-
-Imagine you have USDC pool on ETH, USDC pool on BSC, with ZRC20 instead of having to balance individual pools you can just take native USDC on ETH, native USDC on BSC and bounce those two against each other, where any, really any balancing is done by kind of balancing them across chains, instead of doing it multiple times on each individual chain.
-
 
 ### How to implement the Omni chain functionality into existing smart contracts?
 
@@ -64,35 +33,6 @@ And then once they all reach consensus on that, they all sign an agreement using
 But it allows them to operate on external chain with external address? Just like they would if it was a single wallet, which gives a lot of flexibility and how they interact. 
 
 But that relying on that TSS model is where a lot of that security comes from, as well as having the multiple groups who are observing these events and reaching consensus versus having one trusted party or one trusted verifier.
-
-### Building?
-
-There are two ways you can build on Zetachain:
-
-- Cross chain messaging, which is one of the more progressive ways of bringing interoperability to existing applications, especially if you're trying to drive interoperability among just a few chains.
-- Omni chain smart contracts. 
-
-
-bytes032: What's the difference between the two and how are Omnichain contracts different to "classic" contracts that everybody is familiar with?
-
-#### Cross chain messaging
-
-With cross chain messaging, you have a contract that uses Zetacain AP and you use it to deploy contract(contracts) on to two or more connected chains. What you get out of this is you can trigger a cross chain message, send from one chain to another, that allows you to transfer any kind of arbitrary data. 
-You can also transfer value, NFT's and whatever you want. So it's a very general but incredibly useful tool to connects already existing applications or existing daps. So you can augment your single chain dApp to become multi chain. 
-
-
-
-#### Omnichain contracts 
-
-It's a contract that you deploy onto Zetachain, instead of deploying it to different chains, you deploy it once.  It essentially has the superpowers to manage assets on different chains. When a user sends tokens on Ethereum to specific address, they also provide some data about which contract to call on Zetachain. Then these tokens get essentially transferred to this contract and it can process these tokens. 
-
-So tokens are transferred on Ethereum, but the ZRC20 representation of these tokens is passed on to the contract on Zetachain. And this ZRC20 standard is an extension of the ERC 20 which extends it in a way that allows contracts to withdraw tokens.
-
-So when you're sending ETH on Ethereum, to this address, a contract can swap these tokens on Zetachain to Matic and these meta tokens can be withdrawn on polygon to any address.
-
-Omni chain smart contracts allow for manipulation of native foreign assets, such as Bitcoin, through a single chain Ethereum compatible platform.
-
-Omni chain smart contracts allow for native assets to be orchestrated as if they were on one chain from many chains, including Bitcoin.
 
 
 #### Conclusion
