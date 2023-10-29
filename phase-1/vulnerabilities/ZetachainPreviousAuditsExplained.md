@@ -45,14 +45,14 @@ Since the transaction is sent and a refund is provided, this results in a *doubl
 - TODO...
 
 
-## Zellic 3.5/Halborn: Not waiting for minimum number of block confirmations results in double spend (critical)
+#### Zellic 3.5/Halborn: Not waiting for minimum number of block confirmations results in double spend (critical)
 - Blockchains sometimes have soft forks that occur from different parts of the network. By default, the deepest fork is taken to be the real one. This is called a blockchain *reorg*. 
 - The Zetachain was waiting for a single block confirmation before the transaction was considered valid. 
 - If a reorg occurred then a transaction could happen on fork A observed by the relayer then a reorg could occur, removing the transaction. 
 - This results in the user having the Bitcoin (instead of the TSS address) and the user having funds within the Zetachain ecosystem. Essentially, it creates a *double spend*. 
 
 
-## Zellic 3.6: Multiple events in the same transaction causes loss of funds and chain halting
+#### Zellic 3.6: Multiple events in the same transaction causes loss of funds and chain halting
 - When transfering funds out of the zEVM onto another blockchain the ``ZetaConnectorZEVM`` contract emits events for the Zetachain Cosmos SDK module to handle. 
 - To store this information, the event is internally hashed. Then, when the event is voted on, it is easy to check what is exactly being voted on. 
 - As a result, *two events* in the same block with the *same parameters* will have the **same hash**. This results in two transactions being processed as a single one. This could happen accidently in the course of action or on purpose. 
