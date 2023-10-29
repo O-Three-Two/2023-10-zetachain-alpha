@@ -45,11 +45,3 @@ Developers might assume that data, once stored on-chain, is always readily avail
 ## Time-Based Operations
 
 Developers might rely on block timestamps for time-sensitive operations, thinking they are exact. However, slight discrepancies in block time or manipulation by malicious validators can lead to unpredicted outcomes in time-based logic.
-
-## Chain Halting and Recovery
-
-Many developers operate under the assumption that the chain will always progress without halting. In reality, critical software bugs, consensus issues, or coordinated attacks can halt chain progression. Recovery mechanisms and processes might not always be straightforward.
-
-## Validator Set Dynamics
-
-Developers might assume a static or slowly changing validator set. However, rapid changes in the validator set, due to factors like validator churn, stake concentration shifts, or onboarding of new validators, can impact
