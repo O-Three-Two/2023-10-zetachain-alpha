@@ -21,3 +21,7 @@ https://github.com/trailofbits/semgrep-rules
 # Golangci-lint
 
 https://github.com/golangci/golangci-lint
+
+# Go Exploit
+
+https://vulncheck.com/blog/go-exploit
