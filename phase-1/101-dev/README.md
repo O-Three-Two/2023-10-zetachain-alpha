@@ -2,66 +2,66 @@
 
 ### What is unique about Zetachain
 
-Zetachain stands out from other L1's due to the fact that its specifically designed from scratch to effectively support on-chain contracts, facilitating ease of use in a multi-chain environment. Their approach method is heavily centered around decentralization and trustlessness, enabling operation across numerous chains without the reliance on centralized trust.
+Zetachain stands out from other L1s because it's specifically designed from scratch to support on-chain contracts effectively, facilitating ease of use in a multi-chain environment. Their approach method is heavily centered around decentralization and trustlessness, enabling operation across numerous chains without the reliance on centralized trust.
 
 While the concept of an omni-chain or multi-chain approach isn't new, and others have attempted it through methods like message passing, these solutions often depend on trusted verifiers or other centralized entities. 
 
 In contrast, Zetachain is being built to be as decentralized as possible. A notable difference with conventional layer one blockchains is their tendency to retain users and developers within their own limited ecosystems, usually discouraging external integration.
 
-Contrarily, Zetachain's model is intended to break these boundaries; they not only permit but actively encourage developers to use their platform as a springboard to reach and connect with other chains. 
+On the contrary, Zetachain's model is intended to break these boundaries; they not only permit but actively encourage developers to use their platform as a springboard to reach and connect with other chains. 
 
-Zetachain's goal is to provide a omni chain experience for both developers and users who navigate the multi-chain landscape, enabling more seamless connectivity and interactions across different blockchain networks.
+Zetachain's goal is to provide an omni chain experience for both developers and users who navigate the multi-chain landscape, enabling more seamless connectivity and interactions across different blockchain networks.
 
-#### H-h-hold on, whats an Omni-chain? How is that different than bridge/multi chain?
+#### H-h-hold on, what's an Omni-chain? How is that different than bridge/multi-chain?
 
-You can think of it like a bridge is an example of a multi chain application? It works **between two** different chains.
+You can think of it like a bridge is an example of a multi-chain application? It works **between two** different chains.
 
-On the other hand, Omnichain, means applications and dApps that work across multiple chains **simultaneously**. 
+On the other hand, Omnichain means applications and dApps that work across multiple chains **simultaneously**. 
 
-Typically, with multi chain apps, the developer might be deploying the same application to multiple chains or similar application, it's almost like they're copy pasting from one place to the next. It's just a series of connected applications. 
+Typically, with multi-chain apps, the developer might be deploying the same application to multiple chains or similar applications; it's almost like they're copy-pasting from one place to the next. It's just a series of connected applications. 
 
-Whereas an omni chain application is designed from the ground up to work across multiple chains. So what happens is you deploy your application logic in one place, and interact with assets across multiple chains. 
+On the other hand, an omnichain application is designed from the ground up to work across multiple chains. So what happens is you deploy your application logic in one place and interact with assets across various chains. 
 
-This magic happens with **Omnichain Smart Contracts**. They are used to orchestrate assets/data on all chains, including non-smart contract solutions like Bitcoin and Dogecoin, on top of its messaging capabilities.
+This magic happens with **Omnichain Smart Contracts**. They are used to orchestrate assets/data on all chains, including non-smart contract solutions like Bitcoin and Dogecoin, on top of their messaging capabilities.
 
-That's what makes it not only different, but unique compared to pure messaging solutions like LayerZero and Axelar.
+That's what makes it different and unique compared to pure messaging solutions like LayerZero and Axelar.
 
 
 #### The Omni-chain approach.
 
-The biggest (and obvious) benefit here is that it eliminates the need for things like wrapped assets, bridges, streamlining cross chain assets and data transfers. But how?
+The most significant (and obvious) benefit here is that it eliminates the need for things like wrapped assets, bridges, streamlining cross-chain assets, and data transfers. But how?
 
-Zetachain has abstracted most of the complication of this in a way to make it easier for users and easier for developers who don't have to worry about wrapping assets and bridging and that kind of work.
+Zetachain has abstracted most of the complications of this in a way to make it easier for users and easier for developers who don't have to worry about wrapping assets and bridging and that kind of work.
 
-All of that happens thanks to the ZRC20 token, which is an abstraction of a token or a native asset on an external chain.
+All of that happens thanks to the ZRC20 token, an abstraction of a token or a native asset on an external chain.
 
-Due to the fact that on Zetachain, there are no wrapped coin, you're actually getting the original asset on the new blockchain if you're swapping. Meaning, assets are never at risk in their system.
+Because on Zetachain, there are no wrapped coins, you're actually getting the original asset on the new blockchain if you're swapping. Meaning assets are never at risk in their system.
 
-##### How does that work and why is this important?
+##### How does that work, and why is this important?
 
-When you're transferring value, instead of locking assets in a vault like in Wormhole, or the Ronin incident, and then having some synthetic asset on the other destination that's backed by that's leaving all of that vault at risk. 
+When you're transferring value, instead of locking assets in a vault-like in Wormhole or the Ronin incident, and then having some synthetic asset on the other destination that's backed by that's leaving all of that vault at risk. 
 
-For Zetachain, it looks more like a two sided swap. You would swap X for data that's burned, and then on the destination that's minted, and then traded for your target asset.
+For Zetachain, it looks more like a two-sided swap. You would swap X for data that's burned, and then on the destination that's minted, and then traded for your target asset.
 
-However, from a user's point of view it's really just all that's kind of managed in the background by app developers and zeta chain. 
+However, from a user's point of view, it's really just all that's kind of managed in the background by app developers and zeta chain. 
 
 So to user, all you're doing is just sending a transaction, and you get the result.
 
-There is no wrapped coin and you're actually getting the original asset on the new blockchain if you're swapping.
+There is no wrapped coin, and you get the original asset on the new blockchain if you're swapping.
 
 #### ZRC20
 
 The staple of Zetachain's omnichain smart contract platform is the novel [ZRC-20](https://www.zetachain.com/docs/developers/omnichain/zrc-20/) token standard, based on ERC-20.
 
-You can think of it like an abstraction of a token or native asset on an external chain.
+You can think of it as an abstraction of a token or native asset on an external chain.
 
-In a broad sense, ZRC-20 tokens are an expansion of the common ERC-20 tokens present in the Ethereum ecosystem. 
+In a broad sense, ZRC-20 tokens are an extension of the ERC20 tokens present in the Ethereum ecosystem. 
 
 **Characteristics:**
 
 - ZRC-20 tokens are an enhancement of Ethereum's ERC-20 standard.
 - They can manage assets on all chains connected to ZetaChain.
-- ZRC-20 can represent any fungible token, including those from other chains (e.g., Bitcoin, Dogecoin, ERC-20 tokens on other networks), and various chain-specific gas assets.
+- ZRC-20 can represent any fungible token, including those from other chains (e.g., Bitcoin, Dogecoin, ERC-20 tokens on other networks) and various chain-specific gas assets.
 
 **Technical Interface:**
 
@@ -71,13 +71,13 @@ In a broad sense, ZRC-20 tokens are an expansion of the common ERC-20 tokens pre
 
 **Functionality:**
 
-- Deposit: Users can send assets to ZetaChain's TSS address on a connected chain. The deposit function is triggered, and the deposited assets are credited to the depositor’s address. If a transaction message contains data, DepositAndCall is invoked to forward this data to a target contract on the zEVM.
-- Withdraw: Similar to the transfer function but involves burning the token amount and triggers a Withdrawal event. This leads to a CCTX, enabling the movement of tokens out of ZetaChain.
+- Deposit: Users can send assets to ZetaChain's TSS address on a connected chain. The deposit function is triggered, and the deposited assets are credited to the depositor's address. If a transaction message contains data, DepositAndCall is invoked to forward this data to a target contract on the zEVM.
+- Withdraw: Similar to the transfer function, but involves burning the token amount and triggering a Withdrawal event. This leads to a CCTX, enabling the movement of tokens out of ZetaChain.
 
 
 ### How do you build on Zetachain?
 
-#### Cross chain messaging (for existing applications)
+#### Cross-chain messaging (for existing applications)
 
 **Concept & Deployment:**
 
@@ -100,11 +100,11 @@ CCM is suitable for applications requiring unidirectional, asynchronous interact
 - Versatility: CCM can handle any data type, leaving data processing to the respective contracts.
 - General-Purpose Utility: CCM is a robust solution for adding cross-chain features to existing applications.
 - Existing Liquidity Usage: It can utilize existing liquidity (like Uniswap pools) on various chains. Transactions involve burning/minting ZETA tokens through ZetaChain, - which may be more complex and gas-intensive but doesn't depend on ZetaChain's own liquidity.
-- Secure Value Transfers: By using ZETA burn/mint functions, it enables value transfer applications without the need to bridge or wrap assets, reducing user risk.
+- Secure Value Transfers: Using ZETA burn/mint functions enables value transfer applications without the need to bridge or wrap assets, reducing user risk.
 
 **Usage Considerations:**
 
-- CCM approach might involve more transactions and higher gas costs compared to other methods.
+- The CCM approach might involve more transactions and higher gas costs than other methods.
 - It's an effective method for applications where complex, chain-specific transactions and states are not central concerns.
 
 #### Omni chain contracts (for new applications)
@@ -155,24 +155,24 @@ CCM is suitable for applications requiring unidirectional, asynchronous interact
 Further reading:
 - [Example Omnichain Contracts](https://github.com/zeta-chain/example-contracts)
 - [Common pitfalls for Cosmos Contracts](https://secure-contracts.com/not-so-smart-contracts/cosmos/index.html)
-- [A developer’s guide to building secure applications on Cosmos](https://www.zellic.io/blog/exploring-cosmos-a-security-primer)
+- [A developer's guide to building secure applications on Cosmos](https://www.zellic.io/blog/exploring-cosmos-a-security-primer)
 
 
 
 
 #### Why would you use omni chain contracts?
 
-Any evm smart contract, you were thinking about making multi chain could be omni chain contract? 
+Any EVM smart contract you were thinking about making multi-chain could be an omni chain contract.
 
-By deploying and interacting with the the main logic in one location, it makes the operations much easier. 
+The most significant benefit comes from deploying and interacting with the main logic in one location, because it makes the operations much easier. 
 
 You're managing one application instead of managing five applications, right? 
 
-Also allows you to kind of streamline the user experience a little bit, the user may not need to jump between four or five different chains in order to do something.
+It also allows you to streamline the user experience a little bit; the user may not need to jump between four or five different chains to do something.
 
 #### TBD
 
- when you're transferring value, instead of locking assets in a vault like in the wormhole, or recent Ronin incident, and then having some synthetic asset on the other destination that's backed by that leaving all of that vault at risk. For us, it looks more like a two sided swap. So you would swap X for data that's burned, and then on the destination that's minted, and then traded for your target asset. But to a user, it's really just all that's kind of managed in the background by app developers and zeta chain. So to user, all you're doing is just sending a transaction, and you get the result. What, whether that's interacting with a smart contract, sending data, transferring value. So often, it's super simple from a user standpoint, and then yeah, and then we just have like a really seamless developer experience, that does not put much of the security burden or development burden on them. While at the same time, we just have kind of the infinite creativity, ceiling of a general smart contract platform.
+ when you're transferring value, instead of locking assets in a vault like in the wormhole or the recent Ronin incident and then having some synthetic asset on the other destination that's backed by that, leaving all of that vault at risk. For us, it looks more like a two-sided swap. So you would swap X for data that's burned, and then on the destination that's minted, and then traded for your target asset. But to a user, it's really just all that's kind of managed in the background by app developers and the zeta chain. So to user, all you're doing is just sending a transaction, and you get the result. What, whether that's interacting with a smart contract, sending data, transferring value. So often, it's super simple from a user standpoint, and then yeah, and then we just have like a really seamless developer experience that does not put much of the security burden or development burden on them. At the same time, we have the infinite creativity ceiling of a general smart contract platform.
 
 #### Summary
 
@@ -193,11 +193,11 @@ So, in a summary omni chain smart contracts are different from cross chain messa
 
 ### Similar protocols
 
-Besides everything mentioned, Zetachain is similar to any other Ethermint enabled Cosmos chain.
+Besides everything mentioned, Zetachain is similar to any other Ethermint-enabled Cosmos chain.
 
-Ethermint enabled just means that there's two chains, one is the actual cosmos chain, which is Zetachain in this case.
+Ethermint enabled just means that there are two chains, one is the actual cosmos chain, which is Zetachain in this case.
 
-The other is an EVM compatible chain, which is called zEVM.
+The other is an EVM-compatible chain, which is called EVM.
 
 The most notable similar example is the Cronos chain, where Cronos chain is the EVM compatibility layer chain (aka the zEVM), and the crypto.com chain is the actual cosmos chain behind the Cronos chain.
 
