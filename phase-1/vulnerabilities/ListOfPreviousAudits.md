@@ -47,3 +47,5 @@
     - https://raw.githubusercontent.com/celer-network/sgn-v2-contracts/main/audit/SlowMist_pegged.pdf
 - THORCHAIN
     - https://github.com/thorchain/Resources/blob/master/Audits/THORChain-TrailOfBits-FullAudit-Aug2021.pdf
+- Axelar networks:
+    - https://github.com/axelarnetwork/audits
