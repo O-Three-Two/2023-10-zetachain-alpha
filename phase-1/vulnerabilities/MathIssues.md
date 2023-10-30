@@ -16,5 +16,5 @@
 ## Truncation
 - In most programming languages, including Golang, integers can be changed in their size.
 - When type casting from one sized integer to another, the values at the top are *chopped* off.
-- For instance, imagine we have a 2 byte unsigned integer (maximum value of 65535) and we convert this to a 1 byte unsigned integer (maxiumum value of 255). If we convert 65535 to a 1 byte unsigned integer, it will become 255 after the chopping off of the higher byte.
+- For instance, imagine we have a 2 byte unsigned integer (maximum value of 65535) and we convert this to a 1 byte unsigned integer (maximum value of 255). If we convert 65535 to a 1 byte unsigned integer, it will become 255 after the chopping off of the higher byte.
 - https://pwning.mirror.xyz/RFNTSouIIlHVNmTNDThUVb1obIeN5c1LAiQuN9Ve-ok
