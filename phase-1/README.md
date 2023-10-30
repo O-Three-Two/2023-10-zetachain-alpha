@@ -3,6 +3,7 @@
 - [101 Zetachain](./101-zetachain.md)
 - [101 Dev](./101-dev.md)
 - [101 Security](./101-security.md)
+- [Tools/Useful resources](./common.md)
 
 ## Contributions
 

@@ -28,7 +28,6 @@
       - [Overview](#overview-3)
     - [Messages](#messages-2)
   - [Security Model](#security-model)
-  - [Tools for static analysis (Auditors \& Devs 101)](#tools-for-static-analysis-auditors--devs-101)
 
 <!-- TOC end -->
 
@@ -542,16 +541,3 @@ The ZetaChain architecture consists of validators, observers, and signers.
 - Ensure that no single entity can sign messages on behalf of ZetaChain to external chains.
 - Bonded stakes, coupled with positive/negative incentives, ensure economic safety.
 - The decentralized transaction signing process initiates smart contract actions in a way that does not reveal any secrets to participating nodes. This is what makes non-smart chain connectivity possible.
-
-### Tools for static analysis (Auditors & Devs 101)
-
-- [CodeQL](https://github.com/crypto-com/cosmos-sdk-codeql/tree/main)
-  - For static analysis
-- [Gosec](https://github.com/cosmos/gosec)
-- [ErrCheck](https://github.com/kisielk/errcheck)
-- [StaticCheck](https://staticcheck.io/)
-- [Go Vet](https://golang.org/cmd/vet/)
-- [Go Report Card](https://goreportcard.com/)
-- [Semgrep](https://github.com/trailofbits/semgrep-rules)
-- [Golangci-lint](https://github.com/golangci/golangci-lint)
-- [Go Exploit](https://vulncheck.com/blog/go-exploit)

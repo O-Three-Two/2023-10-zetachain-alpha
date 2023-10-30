@@ -1,4 +1,4 @@
-- [Auditors 101](#auditors-101)
+- [Security 101](#security-101)
 - [Vulnerability Classes](#vulnerability-classes)
 - [Other Useful Links](#other-useful-links)
 - [Exploiting developer assumptions based on previous exploits/audits](#exploiting-developer-assumptions-based-on-previous-exploitsaudits)
@@ -64,7 +64,7 @@
   - [**Data Availability**](#data-availability)
   - [**Time-Based Operations**](#time-based-operations)
 
-## Auditors 101
+## Security 101
 
 ## Vulnerability Classes 
 - [Access Control](https://github.com/O-Three-Two/2023-10-zetachain-alpha/blob/main/phase-1/vulnerabilities/AccessControl.md)
