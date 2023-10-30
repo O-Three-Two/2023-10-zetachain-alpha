@@ -1,6 +1,6 @@
 ### Token Usage
 - Tokens are the main form of asset transfer in most blockchains, including the Cosmos SDK. 
-- Validating that the tokens are being used correctly at both the Cosmos SDK level and EVM level are crucial for security. Duplication, removal or any other issues could ruin the system. 
+- Validating that the tokens are being used correctly at both the Cosmos SDK level and EVM level are critical for security. Duplication, removal or any other issues could ruin the system. 
 - A list of issues is shown below: 
 
 #### Bad Oracles
@@ -8,7 +8,7 @@
 - This is commonly done with an *oracle*: an entity who decides the price for us. 
 - If the oracle value itself is bad, then the entire ecosystem crumbles under this as well. 
 - **Out of date oracle** can occur if the price is not updated frequently enough. An attacker could arbitrage a program if this occurs. 
-- **Manipulatable**. If it's on on-chain oracle, the oracle price could be manipulated in an unfair way for the system, resulting in massive gain for the attacker. 
+- **Manipulatable**. If it's an on-chain oracle, the oracle price could be manipulated in an unfair way for the system, resulting in massive gain for the attacker. 
 - https://blog.openzeppelin.com/secure-smart-contract-guidelines-the-dangers-of-price-oracles 
 - https://blog.quillaudits.com/2023/07/25/decoding-palmswaps-900k-exploit/
 
@@ -24,7 +24,7 @@
 
 #### Improper Bookkeeping 
 - Adding, removing and transferring funds from an account is a manual process by the programmers of a Cosmos SDK blockchain. 
-- Ensuring that the assets can kept track of securely is cruical. Otherwise, an attacker could gain an inflated set of tokens. 
+- Ensuring that the assets are kept track of securely is cruical. Otherwise, an attacker could gain an inflated set of tokens. 
 - In Osmosis, the *withdrawal* sent **two times** the amount of tokens that it should have: 
     - https://decrypt.co/102300/cosmos-based-defi-exchange-osmosis-hit-by-5m-exploit 
     - https://www.reddit.com/r/CryptoCurrency/comments/v7iy8t/osmosis_has_been_hacked_and_chain_halted_lps/
