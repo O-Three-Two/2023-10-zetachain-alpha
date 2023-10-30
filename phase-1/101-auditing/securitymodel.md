@@ -24,6 +24,7 @@ The ZetaChain architecture consists of validators, observers, and signers.
 **Decentralized Transaction Signing: In a distributed fashion, mutating states on external blockchains is authenticated & secured by leaderless Threshold Signature Scheme (TSS)**
 - Zetachain's TSS is forked from [Binance](https://github.com/bnb-chain/tss-lib)
   - Previously Known Issues : [CVE-2022-47930](https://www.cve.org/CVERecord?id=CVE-2022-47930) , [CVE-2022-47931](https://www.cve.org/CVERecord?id=CVE-2022-47931) , [CVE-2023-26556](https://www.cve.org/CVERecord?id=CVE-2023-26556) , [CVE-2023-26557](https://www.cve.org/CVERecord?id=CVE-2023-26557)
+  - Affected Projects by Binance TSS Lib Vulnerability : [Thorchain Halt](https://twitter.com/THORChain/status/1691793526382789044)
 - Hold standard ECDSA/EdDSA keys for interacting with external chains.
 - Keys are distributed in a way that a supermajority is needed to sign on behalf of ZetaChain.
 - Ensure that no single entity can sign messages on behalf of ZetaChain to external chains.
