@@ -58,14 +58,14 @@ On the other hand, an omnichain application is designed from the ground up to wo
 
 This magic happens with **Omnichain Smart Contracts**. They are used to orchestrate assets/data on all chains, including non-smart contract solutions like Bitcoin and Dogecoin, on top of their messaging capabilities.
 
-That's what makes it different and unique compared to pure messaging solutions like LayerZero and Axelar.
+That makes it different and unique compared to pure messaging solutions like LayerZero and Axelar.
 
 
 #### The Omni-chain approach.
 
 The most significant (and obvious) benefit here is that it eliminates the need for things like wrapped assets, bridges, streamlining cross-chain assets, and data transfers. But how?
 
-Zetachain has abstracted most of the complications of this in a way to make it easier for users and easier for developers who don't have to worry about wrapping assets and bridging and that kind of work.
+Zetachain has abstracted most of the complications of this in a way to make it easier for users and for developers who don't have to worry about wrapping assets and bridging and that kind of work.
 
 All of that happens thanks to the ZRC20 token, an abstraction of a token or a native asset on an external chain.
 
@@ -122,7 +122,7 @@ In a broad sense, ZRC-20 tokens are an extension of the ERC20 tokens present in 
 
 - Users interact with CCM-enabled contracts on any connected chain.
 - These contracts use a Connector API to send messages.
-- ZetaChain acts as a relay, forwarding these messages to the intended destination chain.
+- ZetaChain is a relay that forwards these messages to the intended destination chain.
 - At the destination, another CCM-enabled contract receives and processes the message via the Connector API.
 
 **Data Handling & State Management:**
@@ -133,7 +133,7 @@ CCM is suitable for applications requiring unidirectional, asynchronous interact
 
 - Versatility: CCM can handle any data type, leaving data processing to the respective contracts.
 - General-Purpose Utility: CCM is a robust solution for adding cross-chain features to existing applications.
-- Existing Liquidity Usage: It can utilize existing liquidity (like Uniswap pools) on various chains. Transactions involve burning/minting ZETA tokens through ZetaChain, - which may be more complex and gas-intensive but doesn't depend on ZetaChain's own liquidity.
+- Existing Liquidity Usage: It can utilize existing liquidity (like Uniswap pools) on various chains. Transactions involve burning/minting ZETA tokens through ZetaChain, - which may be more complex and gas-intensive but doesn't depend on ZetaChain's liquidity.
 - Secure Value Transfers: Using ZETA burn/mint functions enables value transfer applications without the need to bridge or wrap assets, reducing user risk.
 
 **Usage Considerations:**
@@ -147,7 +147,7 @@ Fees are paid in ZETA tokens, which are transferred to a Connector contract on a
 1. Validator/Staker/Ecosystem Pools: Rewarding those who maintain the network.
 2. Gas on Destination Chain: Covering the transaction costs on the recipient blockchain.
 
-When sending a cross-chain message you're paying two types of fees:
+When sending a cross-chain message, you're paying two types of fees:
 1. Outbound Gas Fee:
     - Depends on the destination chain’s gas prices, the user-set gas limit, and token prices in ZetaChain's liquidity pools.
     - It's calculated dynamically.
@@ -218,9 +218,9 @@ When sending a cross-chain message you're paying two types of fees:
 
 #### Why would you use omni chain contracts?
 
-Any EVM smart contract you were thinking about making multi-chain could be an omni chain contract.
+Any EVM smart contract you were considering making multi-chain could be an omni-chain contract.
 
-The most significant benefit comes from deploying and interacting with the main logic in one location, because it makes the operations much easier. 
+The most significant benefit comes from deploying and interacting with the main logic in one location because it makes the operations much easier. 
 
 You're managing one application instead of managing five applications, right? 
 
@@ -228,7 +228,7 @@ It also allows you to streamline the user experience a little bit; the user may 
 
 #### Summary
 
-So, in a summary omni chain smart contracts are different from cross chain messaging in that they allow for transferring arbitrary data and value between multiple connected chains, while cross chain messaging is limited to transferring data and value within a single chain.
+So, in summary, omni-chain smart contracts are different from cross-chain messaging in that they allow for transferring arbitrary data and value between multiple connected chains, while cross-chain messaging is limited to transferring data and value within a single chain.
 
 #### Similar protocols
 
@@ -329,7 +329,7 @@ Explanation:
 - Authorized users: Only the admin policy account.
 
 **3. MsgCreateTSSVoter:**
-- Votes on creating a TSS key, and recording its details (public key, participant addresses, etc.).
+- Votes on creating a TSS key and recording its details (public key, participant addresses, etc.).
 - Authorized users: Only node accounts.
 - Successful votes record the TSS key on-chain and update the keygen status.
 
@@ -361,8 +361,8 @@ Explanation:
 
 #### `emissions` module
 
-The emissions module is pivotal in ensuring fair and timely reward distribution to various network participants, which is fundamental for the network security and incentivization.
-The current focus on rewarding validators every block, with TSS signers and observers having their rewards accumulated, suggests a prioritization that might reflect the network's operational or security strategies.
+The emissions module is pivotal in ensuring fair and timely reward distribution to various network participants, which is fundamental for network security and incentivization.
+The current focus on rewarding validators every block, with TSS signers and observers accumulating rewards, suggests a prioritization that might reflect the network's operational or security strategies.
 
 ![](https://i.imgur.com/WzttDLB.png)
 
@@ -382,12 +382,12 @@ The distribution mechanism of these rewards is executed during the 'begin blocke
 - The module maintains several key parameters to calculate the rewards effectively:
     - Maximum Bond Factor: Likely a parameter determining the upper limit of bonding (staking) rewards.
     - Minimum Bond Factor: Sets the lower limit for bonding rewards.
-    - Average Block Time: The typical time taken for a new block creation in the blockchain.
-    - Target Bond Ratio: Desired ratio of bonded (staked) tokens to the total token supply, for stability and security.
+    - Average Block Time: The typical time for a new block creation in the blockchain.
+    - Target Bond Ratio: Desired ratio of bonded (staked) tokens to the total token supply for stability and security.
     - Validator Emission Percentage: Percentage of total rewards designated for validators.
     - Observer Emission Percentage: Share of total rewards allocated to observers.
     - TSS Signer Emission Percentage: Portion of rewards given to participants in the TSS.
-    - Duration Factor Constant: Possibly a factor used in calculating rewards based on time or duration of certain activities.
+    - Duration Factor Constant: Possibly a factor used in calculating rewards based on the time or duration of certain activities.
 
 
 #### `fungible` module
@@ -410,7 +410,7 @@ The fungible module on ZetaChain is used to facilitate the interaction and integ
 
 **3. Integration with System Contracts and Uniswap:**
 - The module supports deploying key system contracts and functionalities such as Uniswap and wrapped ZETA (a representation of ZetaChain's native token on external chains).
-- These integrations are crucial for enabling seamless liquidity and exchange functionalities within the ZetaChain ecosystem.
+- These integrations enable seamless liquidity and exchange functionalities within the ZetaChain ecosystem.
 
 **4. Omnichain Smart Contract Interactions:**
 - The module allows for the depositing of ZRC20 tokens to omnichain smart contracts.
@@ -420,7 +420,7 @@ The fungible module on ZetaChain is used to facilitate the interaction and integ
 - Stores the address of the primary system contract, which is central to the module's operations and integrations across the ZetaChain and other connected blockchains.
 
 **6. Registry of Foreign Coins:**
-- Maintains a comprehensive list of all foreign coins that have been deployed on ZetaChain.
+- Maintains a list of all foreign coins deployed on ZetaChain.
 
 ##### Messages
 
@@ -477,7 +477,7 @@ The fungible module on ZetaChain is used to facilitate the interaction and integ
 
 **Chain-Observer Account Mappings:**
 - Set during the network's genesis.
-- Critical in the crosschain module to identify and authorize observer validators for transactions associated with particular connected chains.
+- Critical in the crosschain module to identify and authorize observer validators for transactions associated with particularly connected chains.
 
 #### Messages
 
@@ -507,7 +507,7 @@ The fungible module on ZetaChain is used to facilitate the interaction and integ
 - Requires an admin policy account.
 
 **6. MsgAddBlockHeader**
-- Adds a block header to the store, based on majority voting by observers.
+- Adds a block header to the store based on majority voting by observers.
 
 
 ### Security Model
@@ -538,7 +538,7 @@ The ZetaChain architecture consists of validators, observers, and signers.
   - Previously Known Issues : [CVE-2022-47930](https://www.cve.org/CVERecord?id=CVE-2022-47930) , [CVE-2022-47931](https://www.cve.org/CVERecord?id=CVE-2022-47931) , [CVE-2023-26556](https://www.cve.org/CVERecord?id=CVE-2023-26556) , [CVE-2023-26557](https://www.cve.org/CVERecord?id=CVE-2023-26557)
   - Affected Projects by Binance TSS Lib Vulnerability : [Thorchain Halt](https://twitter.com/THORChain/status/1691793526382789044)
 - Hold standard ECDSA/EdDSA keys for interacting with external chains.
-- Keys are distributed in a way that a supermajority is needed to sign on behalf of ZetaChain.
+- Keys are distributed so that a supermajority is needed to sign on behalf of ZetaChain.
 - Ensure that no single entity can sign messages on behalf of ZetaChain to external chains.
 - Bonded stakes, coupled with positive/negative incentives, ensure economic safety.
 - The decentralized transaction signing process initiates smart contract actions in a way that does not reveal any secrets to participating nodes. This is what makes non-smart chain connectivity possible.
