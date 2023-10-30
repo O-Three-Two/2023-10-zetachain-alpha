@@ -6,7 +6,11 @@
 
 ## Contributions
 
-- [ ] {text goes here} @vladbochok
-- [ ] {text goes here} @bytes032
-- [ ] {text goes here} @defsec
-- [ ] {text goes here} @mdulin2
+- Everything related to parsing audits reports and hacks, respectively everything in the ./vulnerabilities folder @mdulin2
+- Security 101 @defsec, @bytes032
+- Dev 101 @bytes032
+- Zetachain 101 @bytes032
+- Developer assumptions (using the information parsed by @mdulin2) @bytes032, @defsec
+- Collecting of resources @mdulin2 @defsec @bytes032
+
+For more granular breakdown, check the commits [here](https://github.com/O-Three-Two/2023-10-zetachain-alpha/commits/main)
