@@ -11,9 +11,9 @@
     - https://github.com/osmosis-labs/osmosis/issues/3831
 
 #### Resource exhaustion
-- In web2, many denial of services issues simply come from eating up too many resources on the machine, such as the recently discovered [rapid reset](https://blog.cloudflare.com/technical-breakdown-http2-rapid-reset-ddos-attack/) bug found in HTTP2. 
+- In web2, many denial of service issues simply come from eating up too many resources on the machine, such as the recently discovered [rapid reset](https://blog.cloudflare.com/technical-breakdown-http2-rapid-reset-ddos-attack/) bug found in HTTP2. 
 - A good example is a recent bug in Osmosis, there is a library being used for performing exponentiation. Instead of simply doing a ** b it is doing an approximation technique using a series. 
-- However, there is no bound on how many interations can occur. The author of the post was able to make the iteration last for 0.8 seconds on each call to it via 2M iterations. This lead to a resource exhaustion because of the blockchain did not have the time necessary to run through the other transactions.
+- However, there is no bound on how many interations can occur. The author of the post was able to make the iteration last for 0.8 seconds on each call to it via 2M iterations. This leads to a resource exhaustion because of the blockchain did not have the time necessary to run through the other transactions.
 - https://blog.trailofbits.com/2023/10/23/numbers-turned-weapons-dos-in-osmosis-math-library/ 
 - https://forum.cosmos.network/t/vulnerability-coordination-retrospective-cosmos-mainnet-security-advisory-lavender-2020-04-09/3550
 - https://medium.com/immunefi/sui-temporary-total-network-shutdown-bugfix-review-c271d0319dcc
@@ -30,7 +30,7 @@
     - Since the states may be different depending on the implementation used, this can cause major problems in consensus. 
     - https://github.com/cybercongress/go-cyber/issues/66
 - **Time**: 
-    - The execution of code may occur are slightly different time windows on different nodes.
+    - The execution of code may occur slightly different time windows on different nodes.
     - Additionally, the clocks on some nodes may differ slightly compared to others. 
     - Direct comparisons on time can cause major discrepancies as a result. 
     - https://forum.cosmos.network/t/cosmos-sdk-vulnerability-retrospective-security-advisory-jackfruit-october-12-2021/5349
