@@ -14,6 +14,14 @@ https://github.com/kisielk/errcheck
 
 https://staticcheck.dev/
 
+# Go Vet
+
+https://golang.org/cmd/vet/
+
+# Go Report Card
+
+https://goreportcard.com/
+
 # Semgrep
 
 https://github.com/trailofbits/semgrep-rules

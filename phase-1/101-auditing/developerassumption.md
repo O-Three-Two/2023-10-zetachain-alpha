@@ -37,3 +37,11 @@ Developers might assume that governance proposals, once passed, will execute per
 ##  Cross-chain Interactions
 
 With the growing popularity of cross-chain platforms, developers might assume that interactions between Cosmos and other chains (e.g., Ethereum, Polkadot) are seamless. However, bridges and peg zones can have their own complexities and vulnerabilities.
+
+## Data Availability
+
+Developers might assume that data, once stored on-chain, is always readily available. However, large-scale data requests or attempts to retrieve historical data can sometimes face challenges, especially on pruned nodes or during network congestion.
+
+## Time-Based Operations
+
+Developers might rely on block timestamps for time-sensitive operations, thinking they are exact. However, slight discrepancies in block time or manipulation by malicious validators can lead to unpredicted outcomes in time-based logic.
