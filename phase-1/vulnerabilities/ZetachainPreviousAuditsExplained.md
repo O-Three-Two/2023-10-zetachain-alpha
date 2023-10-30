@@ -14,7 +14,7 @@
 - These are the ``MsgAddToOutTxTracker`` and ``MsgRemoveFromOutTxTracker`` messages. Only bonded validators are allowed to submit these. This is a dangerous primitive to give. 
 - Since they can *add* and *remove* they can *swap* transactions in and out to get them voted on. A flow for explotation is shown below: 
     1. Transfer some ETH from Goerli back to Goerli. The two chains do not matter as long as they are both EVM chains.
-    2. The event will be processsed by the voting and the TSS address will sign the request to go back to the EVM chain. The funds have been delivered. 
+    2. The event will be processed by the voting and the TSS address will sign the request to go back to the EVM chain. The funds have been delivered. 
     3. Remove the transaction using the ``MsgRemoveFromOutTxTracker`` message. At this point, Zetachain is waiting on a response (voting) that the transaction succeeded on the EVM chain. 
     4. Call ``MsgAddToOutTxTracker`` to add a transaction that had previously failed with the original nonce. 
     5. The voting process will believe that the ``removed transaction`` failed or reverted because of this. 
@@ -28,21 +28,20 @@ Since the transaction is sent and a refund is provided, this results in a *doubl
     2. CoinType_Gas - Bitcoin, Dogecoin and others
     3. CoinType_ERC20 - USDT, USDC
 - The TSS address is a made up of a collection of validators who own small amounts of the key. Collectively, they can sign a transaction like a multi-sig address once something is voted on. This is the ``zetaclient`` process. It determines the voting and TSS signing process. 
-- When deciding to sign a ``CoinType_Gas`` transaction (bitcion, Dogecoin, etc.), the program assumed that only Bitcoin coins were being sent to the blockchain. The bitcoin signer would see the transaction sent to the Bitcoin address and sign it. 
+- When deciding to sign a ``CoinType_Gas`` transaction (bitcoin, Dogecoin, etc.), the program assumed that only Bitcoin coins were being sent to the blockchain. The bitcoin signer would see the transaction sent to the Bitcoin address and sign it. 
 - However, the coin type was not verified at all. As a result, an attacker could send a little amount of ZETA to a bitcoin blockchain, which would result in the Bitcoin being sent to the users address. 
 - A tiny fraction of Zeta (1/1e10) could be used to receive one BTC in return as a result.
 
 
 ### Zellic 3.4 Race condition in Bitcoin client leads to double spend (critical)
-- The bitcoin client is used both for watching Zetachain cross-chain transactions as well as relaying transaction transctions to and from the Bitcoin chain. There is a bunch of functionality happening all at once. 
+- The bitcoin client is used both for watching Zetachain cross-chain transactions as well as relaying transaction transactions to and from the Bitcoin chain. There is a bunch of functionality happening all at once. 
 - There are four main processes running in different threads: 
     1. ``isSendOutTxProcessed``: Whether the transaction in question was submitted for relaying
-    2. ``startSendScheduler``: Gets all pending cross chain transcations (CCTX) to see if they have been submitted. 
+    2. ``startSendScheduler``: Gets all pending cross chain transactions (CCTX) to see if they have been submitted. 
     3. ``TryProcessOutTx``: Signs and broadcasts CCTXs then adds them to a tracker on Zetachain. 
-    4. ``observeOutTx``: Queries for all transactions in the crosschain module and adds to them to processed queue. 
+    4. ``observeOutTx``: Queries for all transactions in the crosschain module and adds them to processed queue. 
 - Since these all run in different threads without any locking or communication, they are very *racy* by nature. 
 - If funky ordering happens here, then it's possible that a transaction gets sent **twice**. This leads to a double spend from just a normal workflow. 
-- TODO...
 
 
 #### Zellic 3.5/Halborn 04: Not waiting for minimum number of block confirmations results in double spend (critical)
@@ -53,9 +52,9 @@ Since the transaction is sent and a refund is provided, this results in a *doubl
 
 
 #### Zellic 3.6: Multiple events in the same transaction causes loss of funds and chain halting
-- When transfering funds out of the zEVM onto another blockchain the ``ZetaConnectorZEVM`` contract emits events for the Zetachain Cosmos SDK module to handle. 
+- When transferring funds out of the zEVM onto another blockchain the ``ZetaConnectorZEVM`` contract emits events for the Zetachain Cosmos SDK module to handle. 
 - To store this information, the event is internally hashed. Then, when the event is voted on, it is easy to check what is exactly being voted on. 
-- As a result, *two events* in the same block with the *same parameters* will have the **same hash**. This results in two transactions being processed as a single one. This could happen accidently in the course of action or on purpose. 
+- As a result, *two events* in the same block with the *same parameters* will have the **same hash**. This results in two transactions being processed as a single one. This could happen accidentally in the course of action or on purpose. 
 - If a user sends 5000Zeta to themselves twice, they should receive 10000Zeta. However, they will only receive 5000Zeta because of the hash collision. 
 - Additionally, the *nonce* will be incremented twice even though a single transaction will be processed. Since the Ethereum receiving side enforces the *ordering* of these nonces, there will be a gap in processed transaction nonces. Since transactions cannot be processed, it results in a halting of the bridge. 
 
@@ -92,7 +91,7 @@ func isDuplicateSigner(creator string, signers []string) bool{
 - The ``zetaclient`` is a crucial part of the ecosystem. Although zetachain will function fine on its own, all bridging and cross-chain functionality would be broken. 
 - Having this client be resilient to crashes is important as a result. There were no protections against Go panics recovering at the time of this audit. 
 - If a crash occurred, it would prevent all transactions from both the EVM and Bitcoin signers to go through. 
-- One way a crash was found was sending in invalid Bitcoin address. Upon calling ``btcutil.DecodeAddress()`` with an invalid address, a crash would occur. 
+- One way a crash was found was sending an invalid Bitcoin address. Upon calling ``btcutil.DecodeAddress()`` with an invalid address, a crash would occur. 
 
 
 #### Zellic 3.11: Ethermint Ante handler bypass (high) 
@@ -109,10 +108,10 @@ func isDuplicateSigner(creator string, signers []string) bool{
 #### Halborn 01: Zeta Supply does not track assets correctly (critical) 
 - In the [whitepaper](https://www.zetachain.com/whitepaper.pdf), specific mention is made to keeping the *supply* of Zeta at a consistent amount. This is because the only native token on Zetachain is the ZETA token. If this could be inflated on one blockchain then used on another, then the consequences would be significant. 
 - The system uses a *mint and burn* model for keeping track of Zeta between chains. Keeping these perfectly in check is important. 
-- Possible to inflate amount of total Zeta via simple calls. By transfering funds from one EVM to another, one transfering chain does not *burn* the tokens. Having too many tokens in circulation would break the Uniswap pools used for trading and other security assumptions. 
+- Possible to inflate amount of total Zeta via simple calls. By transferring funds from one EVM to another, one transferring chain does not *burn* the tokens. Having too many tokens in circulation would break the Uniswap pools used for trading and other security assumptions. 
 
 #### Halborn 02/12: Integers Overflows/Truncations Cause Havoc (critical)
-- Go is suspectible to number related vulnerabilities like integer overflows, underflows, sign changes and truncation.
+- Go is susceptible to number related vulnerabilities like integer overflows, underflows, sign changes and truncation.
 - Multiple occurrences of overflows and signedness issues were discovered on the project.
 - 02: Large block heights can overflow within the ``EndBlocker`` when changing the gas price of stuck transactions. Because this overflow occurs, the pending transactions will be increased by 20%, resulting in a network outage.
 - 12: With very large block heights, a crash will occur within the querying (GRPC) of blockchain state. 
@@ -147,13 +146,13 @@ func isDuplicateSigner(creator string, signers []string) bool{
 #### Halborn 09: Sybil attack risk due to use of median gas votes for setting gas price (medium)
 - The gas price of networks is determined by the validators. In particular, they check various locations to vote on the gas price. 
 - The voting process takes the *median* gas price. The *median* is the center of the list and NOT the average. 
-- This results in massive changes in gas price. For instance, if the sent in prices are 1,2,3,200,300, the price would be 3. However, if a new vote came in, the price could rise to 200 drastically.
+- This results in massive changes in gas price. For instance, if the sent in prices are 1,2,3,200,300, the price would be 3. However, if a new vote came in, the price could rise to 200 suddenly.
 - Since the average is not being used and validator power is not considered, this is vulnerable to sybil attacks as well. An attacker with control over multiple low power validators could deeper influence the vote by adding in large gas prices. Besides sybil attacks, *collusion** could occur between validators as well.
 - The recommended fix for this was to use a Time Weighted Average Price (TWAP). However, this was not implemented.
 
 #### Halborn 10: Malicious Gas Price Voting - Denial of Service by setting large gas prices for evm networks (medium)
 - The gas price of networks is determined by the validators. In particular, they check various locations to vote on the gas price. 
-- Validators can collude to privide gas prices that are too high for the network, resulting in a network shutdown.
+- Validators can collude to provide gas prices that are too high for the network, resulting in a network shutdown.
 - The recommended fix was to impose a *cap* on the gas price, which was implemented.
 
 #### Halborn 11:  Malicious Gas Price Voting - Denial of Service by setting gas prices for bitcoin (medium)
@@ -164,12 +163,12 @@ func isDuplicateSigner(creator string, signers []string) bool{
 
 #### Halborn 13: Reliance on UniswapV2 Pools for Prices Exposes Zetachain to price manipulation risk  (low) 
 - To go from one token to ZETA, UniswapV2 pools are created within the EVM ecosystems.
-- UniswapV2 is known to be vulnerbale to various security risks, such as frontrunning, price manipulation and depegging of stablecoins.
+- UniswapV2 is known to be vulnerable to various security risks, such as frontrunning, price manipulation and depegging of stablecoins.
 - The recommended fix was to use UniswapV3 instead but this was not done.
 
 #### Halborn 14: Arbitrary Minting of Zeta via MintZetaToEVMAccount Function (low)
-- The function ``MintZetaToEVMAccount`` is used for transfering ZETA from other chains to the zEVM.
-- When an error occurs in this function, the protocol still returns a valid state rather than reverting. As a result, the minted tokens are still there, sresulting in an increase in supply.
+- The function ``MintZetaToEVMAccount`` is used for transferring ZETA from other chains to the zEVM.
+- When an error occurs in this function, the protocol still returns a valid state rather than reverting. As a result, the minted tokens are still there, resulting in an increase in supply.
 
 #### Halborn 16: Use of Vulnerable Cosmos SDK Version (low)
 - Versions 0.46.10 and below are suspectible to a denial of service attack.
@@ -188,10 +187,10 @@ func isDuplicateSigner(creator string, signers []string) bool{
 
 #### Peckshield 1/Quantum Brief 1/Halborn 01/Halborn 02: Accommodation of Non-ERC20-Compliant Tokens (low)
 - Any ERC20 token is supported. Since some of these are deflationary tokens or non-compliant tokens, issues can occur.
-- Use ``safe`` variant of functions to prevent issues.
+- Use ``safe`` variants of functions to prevent issues.
 
 #### Peckshield 2: Trust Issue of Admin Keys (medium) - invalid
-- The ``tssAddress`` allows for the updating of important values across chain, such as the zeta supply and more.
+- The ``tssAddress`` allows for the updating of important values cross chain, such as the zeta supply and more.
 - The authors claim this to be a *centralization risk*.
 - However, the TSS address is a decentralized address with all of the validators owning a small bit of the key. So, I don't believe this finding is valid.
 
@@ -201,7 +200,7 @@ func isDuplicateSigner(creator string, signers []string) bool{
 - The impact of this on the wider ecosystem is unknown though.
 
 #### Halborn 05: Insecure Use of Tx.Origin in the Send Function 
-- When emitting an event, the ``tx.origin`` is used for the *receiver* of the tokens across chain.
+- When emitting an event, the ``tx.origin`` is used for the *receiver* of the tokens cross chain.
 - ``msg.sender`` is the preferred way to do this, since ``tx.origin`` is vulnerable to phishing attacks.
 - This issue was not fixed since a user would need to do this to themselves. 
 
