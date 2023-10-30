@@ -1,3 +1,9 @@
+- [Denial of Service Vulnerabilities](#denial-of-service-vulnerabilities)
+  - [Divide by 0](#divide-by-0)
+  - [Resource exhaustion](#resource-exhaustion)
+  - [Non-deterimism](#non-deterimism)
+
+
 ### Denial of Service Vulnerabilities 
 - Crashes of the blockchain are awful, since no one can use the blockchain. In Ethereum, the infrastructure is solid from years of use and auditing. With Cosmos-based blockchains, vulnerabilities may be discovered that take down the entire blockchain.
 - It should be noted that only crashes within the ``BeginBlocker`` and ``EndBlocker`` result in the blockchain being taken down. Panics within the ``checkTx`` and ``runTx`` have a Go panic handler. 

@@ -1,3 +1,9 @@
+- [Token Usage](#token-usage)
+  - [Bad Oracles](#bad-oracles)
+  - [Denom Checks](#denom-checks)
+  - [Decimals](#decimals)
+  - [Improper Bookkeeping](#improper-bookkeeping)
+
 ### Token Usage
 - Tokens are the main form of asset transfer in most blockchains, including the Cosmos SDK. 
 - Validating that the tokens are being used correctly at both the Cosmos SDK level and EVM level are critical for security. Duplication, removal or any other issues could ruin the system. 

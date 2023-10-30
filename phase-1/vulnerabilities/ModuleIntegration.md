@@ -1,3 +1,9 @@
+- [Module Integration](#module-integration)
+  - [Staking Module](#staking-module)
+  - [Banking Module](#banking-module)
+  - [Crisis Module](#crisis-module)
+  - [Governance Module](#governance-module)
+
 ### Module Integration 
 - The Cosmos SDK is made up of bite-sized components. From the ``banking`` module to ``staking`` to external ones like ``Ethermint``. Being able to understand the functions and assumptions of these from a security perspective is incredibly important. 
 - A few examples of integration issues are listed below. But, this is not a comprehensive list. 

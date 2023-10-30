@@ -1,3 +1,14 @@
+- [Other Audit Findings](#other-audit-findings)
+  - [A byzantine consumer can tombstone, slash, or jail an innocent validator - Cosmos Hub by Informal Systems](#a-byzantine-consumer-can-tombstone-slash-or-jail-an-innocent-validator---cosmos-hub-by-informal-systems)
+  - [Stealing of user funds via negative deposits - Duality Informal Systems](#stealing-of-user-funds-via-negative-deposits---duality-informal-systems)
+  - [Escrow Address Collisions - IBC by Informal Systems](#escrow-address-collisions---ibc-by-informal-systems)
+  - [Isolating Host Zone Operations - Stride by Informal Systems](#isolating-host-zone-operations---stride-by-informal-systems)
+  - [User Interface Message Spoofing - Vega Protocol by OtterSec](#user-interface-message-spoofing---vega-protocol-by-ottersec)
+  - [Incorrect Tick Boundary - Osmosis by OtterSec](#incorrect-tick-boundary---osmosis-by-ottersec)
+  - [Incorrect Tick Iterator Initialization - Osmosis by OtterSec](#incorrect-tick-iterator-initialization---osmosis-by-ottersec)
+  - [Proposal’s tally returns wrong vote result - Neutron by Oak Security](#proposals-tally-returns-wrong-vote-result---neutron-by-oak-security)
+  - [IBC Error Handling Issues - IBC by JumpCrypto](#ibc-error-handling-issues---ibc-by-jumpcrypto)
+
 ## Other Audit Findings
 
 ### A byzantine consumer can tombstone, slash, or jail an innocent validator - Cosmos Hub by Informal Systems

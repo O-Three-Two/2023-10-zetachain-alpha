@@ -1,3 +1,7 @@
+- [Rounding](#rounding)
+- [Integer Overflows/Underfllows](#integer-overflowsunderfllows)
+- [Truncation](#truncation)
+
 ## Rounding 
 - Similar to Solidity, rounding on token amounts and other important values needs to be taken seriously.
 - ``sdk.Dec`` has problems with math operations and is commonly used throughout the Cosmos SDK.

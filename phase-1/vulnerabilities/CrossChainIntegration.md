@@ -1,3 +1,11 @@
+- [Bridge Integration](#bridge-integration)
+  - [Timeouts](#timeouts)
+  - [Relayer](#relayer)
+  - [Supply Growth](#supply-growth)
+  - [Input Validation](#input-validation)
+  - [Event Handling](#event-handling)
+  - [Voting](#voting)
+
 ### Bridge Integration 
 - Cosmos SDK is a world of application blockchains. To go between these, a protocol called Inter-blockchain communication (IBC) is used. This is not used by Zetachain though, since we're going between native tokens and EVM chains. 
 - Most bridges function in a specific way: 
