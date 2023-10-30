@@ -193,7 +193,7 @@ The `crosschain` module manages cross-chain transactions through a network of ob
 
 This structure is used to secure and accurately execute transactions across different blockchains, with specific processes for handling both inbound and outbound transactions.
 
-[](https://imgur.com/nE8UpHk.png)
+[](https://imgur.com/6GoadJU.png)
 
 **Key Components:**
 
