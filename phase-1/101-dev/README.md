@@ -147,9 +147,6 @@ CCM is suitable for applications requiring unidirectional, asynchronous interact
 - Cost-effective in terms of gas usage compared to other message-passing methods.
 
 
-
-
-
 ##### 
 
 Further reading:
@@ -188,8 +185,114 @@ So, in a summary omni chain smart contracts are different from cross chain messa
 
 ### Architecture
 
+#### Modules
+
+##### `crosschain` module overview
+
+The `crosschain` module manages cross-chain transactions through a network of observers and a systematic voting process. 
+
+This structure is used to secure and accurately execute transactions across different blockchains, with specific processes for handling both inbound and outbound transactions.
+
+[](https://imgur.com/nE8UpHk.png)
+
+**Key Components:**
+
+**1. Observers:**
+
+- Main actors in the Crosschain module.
+- Run an off-chain program (zetaclient) to monitor:
+- Inbound transactions on connected blockchains.
+- Outbound transactions on both ZetaChain and connected chains.
 
 
+**2. Voting Process:**
+
+- Observers vote on observed transactions.
+- A ballot is created upon the first vote for a transaction.
+- Observers cast votes, and when enough votes are cast (based on the BallotThreshold), the ballot is finalized.
+- The last vote that finalizes the ballot triggers the execution of the cross-chain transaction and pays its gas costs.
+- Votes after finalization are discarded.
+
+**3. Inbound Transaction Handling:**
+
+- Inbound CCTXs observed on connected chains.
+- Observers vote using MsgVoteOnObservedInboundTx.
+- On finalization:
+    - If ZetaChain is the destination and no message is in the CCTX, ZRC20 tokens are deposited into a ZetaChain account.
+    - If the CCTX contains a message, ZRC20 tokens are deposited, and a ZetaChain contract is called using details from the message.
+    - If the destination is not ZetaChain, the transaction is marked "pending outbound" for outbound processing.
+
+**4. Outbound Transaction Processing:**
+
+- Pending Outbound:
+    - Observers watch for these on ZetaChain.
+     -They participate in a TSS keysign ceremony, then broadcast the signed transaction to connected blockchains.
+- Observed Outbound:
+    - Observers monitor these on connected chains.
+    - Confirmed transactions are voted on in ZetaChain using VoteOnObservedOutboundTx.
+    - After meeting the vote threshold and finalization, the transaction's status updates to final.
+
+**5. Permissions:**
+- Certain actions, like creating TSS voters or voting on observed transactions, are permitted to the admin policy account or observer validators.
+
+**6. State Management:**
+
+- The module's state includes lists of outbound transactions, chain nonces, last chain heights, cross-chain transactions, and a mapping between inbound transactions and CCTXs.
+- Also stores the TSS key and observer-submitted gas prices on connected chains.
+
+##### `crosschain` module messages
+
+The `cross-chain` module uses a variety of messages for managing cross-chain transactions and network operations. These messages involve various functionalities like tracking transactions, voting mechanisms, managing gas prices, and working with TSS (Threshold Signature Scheme) keys.
+
+![](https://imgur.com/jgxmuR2.png)
+
+
+Explanation:
+- Admin Policy Account (Admin) and Observer Validators (Observer) can add to or remove from the Outbound Tx Tracker (Tracker) using MsgAddToOutTxTracker and MsgRemoveFromOutTxTracker respectively.
+- Node Accounts (Node) can trigger a TSS key creation vote with MsgCreateTSSVoter.
+- Observer Validators can submit gas price information with MsgGasPriceVoter and vote on observed transactions with MsgVoteOnObservedOutboundTx and MsgVoteOnObservedInboundTx.
+- Lastly, Admin can whitelist ERC20 tokens with MsgWhitelistERC20 and update the TSS address with MsgUpdateTssAddress.
+
+**Messages and Their Functions:**
+
+**1. MsgAddToOutTxTracker:**
+- Adds a new record to the outbound transaction tracker.
+- Authorized users: Admin policy account and observer validators.
+
+**2. MsgRemoveFromOutTxTracker:**
+- Removes a record from the outbound transaction tracker.
+- Authorized users: Only the admin policy account.
+
+**3. MsgCreateTSSVoter:**
+- Votes on creating a TSS key, and recording its details (public key, participant addresses, etc.).
+- Authorized users: Only node accounts.
+- Successful votes record the TSS key on-chain and update the keygen status.
+
+**4. MsgGasPriceVoter:**
+- Submits information about gas prices of connected chains.
+- Authorized users: Only observer validators.
+- Records each validator's submitted gas price separately, updating a median index.
+
+**5. MsgNonceVoter:**
+- It's deprecated
+
+**6. MsgVoteOnObservedOutboundTx:**
+- Casts a vote on an observed outbound transaction.
+- Authorized users: Only observer validators.
+- Voting affects how outbound transactions are processed, including cases of failed observations, status updates, and handling of revert transactions.
+
+**7. MsgVoteOnObservedInboundTx:**
+- Casts a vote on an observed inbound transaction.
+- Authorized users: Only observer validators.
+- Involves deposit methods, contract executions, and processing inbound transactions for ZetaChain and connected chains.
+
+**8. MsgWhitelistERC20:**
+- Used to whitelist ERC20 tokens.
+- Contains details like ERC20 address, chain ID, and token characteristics (name, symbol, decimals).
+
+**9. MsgUpdateTssAddress:**
+- Used for updating TSS addresses.
+- Contains details like the creator and the TSS public key.
 
 ### Similar protocols
 
