@@ -1,4 +1,4 @@
-## Zetachain Development 101
+## Zetachain 101
 
 ### What is unique about Zetachain
 
@@ -75,7 +75,7 @@ In a broad sense, ZRC-20 tokens are an extension of the ERC20 tokens present in 
 - Withdraw: Similar to the transfer function, but involves burning the token amount and triggering a Withdrawal event. This leads to a CCTX, enabling the movement of tokens out of ZetaChain.
 
 
-### How do you build on Zetachain?
+### How do you build on Zetachain? (Developers 101)
 
 #### Cross-chain messaging (for existing applications)
 
@@ -206,7 +206,7 @@ So, in a summary omni chain smart contracts are different from cross chain messa
 - [Top 5 security vulnerabilities Cosmos Developers need to watch out for ](https://www.halborn.com/blog/post/top-5-security-vulnerabilities-cosmos-developers-need-to-watch-out-for)
 
 
-### Architecture
+### Architecture (Devs 101)
 
 #### `crosschain` module
 
@@ -410,7 +410,7 @@ The fungible module on ZetaChain is used to facilitate the interaction and integ
 
 #### `observer` module
 
-#### Overview
+##### Overview
 
 **Key functionality**
 
@@ -466,6 +466,39 @@ The fungible module on ZetaChain is used to facilitate the interaction and integ
 
 **6. MsgAddBlockHeader**
 - Adds a block header to the store, based on majority voting by observers.
+
+
+### Security Model (Auditors 101)
+
+ZetaChain is a Proof of Stake (PoS) blockchain, which can connect to any external blockchain or layer in a decentralized, trustless, permissionless way - without a single point of failure.
+
+The ZetaChain architecture consists of validators, observers, and signers.
+
+**Validators**
+
+- Utilizes the Tendermint consensus protocol, a Byzantine Fault Tolerant algorithm.
+- Votes on block proposals with voting power proportional to their staked ZETA coins.
+- Must remain online continuously for block production.
+- Identified by their unique consensus public key.
+- Rewarded with block rewards and transaction fees for their service.
+
+**Observers**
+
+- Essential for ZetaChain consensus.
+- Monitor external chains for relevant transactions/events/states.
+- Comprised of sequencers and verifiers.
+- Sequencers: Detect relevant external transactions/events/states and relay this information to verifiers.
+- Verifiers: Verify the data and vote on ZetaChain for consensus.
+- At least one honest sequencer is required for network liveness.
+
+**Decentralized Transaction Signing: In a distributed fashion, mutating states on external blockchains is authenticated & secured by leaderless Threshold Signature Scheme (TSS)**
+- Zetachain's TSS is forked from [Binance](https://github.com/bnb-chain/tss-lib)
+- Hold standard ECDSA/EdDSA keys for interacting with external chains.
+- Keys are distributed in a way that a supermajority is needed to sign on behalf of ZetaChain.
+- Ensure that no single entity can sign messages on behalf of ZetaChain to external chains.
+- Bonded stakes, coupled with positive/negative incentives, ensure economic safety.
+- The decentralized transaction signing process initiates smart contract actions in a way that does not reveal any secrets to participating nodes. This is what makes non-smart chain connectivity possible.
+
 
 ### Similar protocols
 
