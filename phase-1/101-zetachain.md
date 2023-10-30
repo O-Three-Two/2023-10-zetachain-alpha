@@ -1,3 +1,37 @@
+<!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
+
+- [Zetachain 101](#zetachain-101)
+  - [What is unique about Zetachain](#what-is-unique-about-zetachain)
+    - [H-h-hold on, what's an Omni-chain? How is that different than bridge/multi-chain?](#h-h-hold-on-whats-an-omni-chain-how-is-that-different-than-bridgemulti-chain)
+    - [The Omni-chain approach.](#the-omni-chain-approach)
+      - [How does that work, and why is this important?](#how-does-that-work-and-why-is-this-important)
+    - [ZRC20](#zrc20)
+  - [How do you build on Zetachain?](#how-do-you-build-on-zetachain)
+    - [Cross-chain messaging (for existing applications)](#cross-chain-messaging-for-existing-applications)
+      - [Gas fees when using cross-chain messaging](#gas-fees-when-using-cross-chain-messaging)
+    - [Omni chain contracts (for new applications)](#omni-chain-contracts-for-new-applications)
+      - [Overview:](#overview)
+      - [Further reading:](#further-reading)
+    - [Why would you use omni chain contracts?](#why-would-you-use-omni-chain-contracts)
+    - [Summary](#summary)
+    - [Similar protocols](#similar-protocols)
+    - [Further reading](#further-reading-1)
+  - [Architecture](#architecture)
+    - [`crosschain` module](#crosschain-module)
+      - [Overview](#overview-1)
+      - [Messages](#messages)
+    - [`emissions` module](#emissions-module)
+    - [`fungible` module](#fungible-module)
+      - [Overview](#overview-2)
+      - [Messages](#messages-1)
+    - [`observer` module](#observer-module)
+      - [Overview](#overview-3)
+    - [Messages](#messages-2)
+  - [Security Model](#security-model)
+  - [Tools for static analysis (Auditors \& Devs 101)](#tools-for-static-analysis-auditors--devs-101)
+
+<!-- TOC end -->
+
 ## Zetachain 101
 
 ### What is unique about Zetachain
@@ -75,7 +109,7 @@ In a broad sense, ZRC-20 tokens are an extension of the ERC20 tokens present in 
 - Withdraw: Similar to the transfer function, but involves burning the token amount and triggering a Withdrawal event. This leads to a CCTX, enabling the movement of tokens out of ZetaChain.
 
 
-### How do you build on Zetachain? (Developers 101)
+### How do you build on Zetachain?
 
 #### Cross-chain messaging (for existing applications)
 
@@ -176,9 +210,7 @@ When sending a cross-chain message you're paying two types of fees:
 - Cost-effective in terms of gas usage compared to other message-passing methods.
 
 
-##### 
-
-Further reading:
+##### Further reading:
 - [Example Omnichain Contracts](https://github.com/zeta-chain/example-contracts)
 - [Common pitfalls for Cosmos Contracts](https://secure-contracts.com/not-so-smart-contracts/cosmos/index.html)
 - [A developer's guide to building secure applications on Cosmos](https://www.zellic.io/blog/exploring-cosmos-a-security-primer)
@@ -198,6 +230,16 @@ It also allows you to streamline the user experience a little bit; the user may 
 
 So, in a summary omni chain smart contracts are different from cross chain messaging in that they allow for transferring arbitrary data and value between multiple connected chains, while cross chain messaging is limited to transferring data and value within a single chain.
 
+#### Similar protocols
+
+Besides everything mentioned, Zetachain is similar to any other Ethermint-enabled Cosmos chain.
+
+Ethermint enabled just means that there are two chains, one is the actual cosmos chain, which is Zetachain in this case.
+
+The other is an EVM-compatible chain, which is called EVM.
+
+The most notable similar example is the Cronos chain, where Cronos chain is the EVM compatibility layer chain (aka the zEVM), and the crypto.com chain is the actual cosmos chain behind the Cronos chain.
+
 #### Further reading
 - [Building with Zetachain](https://www.zetachain.com/docs/developers/overview/)
 - [Omnichain Contract Template](https://www.zetachain.com/docs/developers/template/)
@@ -206,7 +248,7 @@ So, in a summary omni chain smart contracts are different from cross chain messa
 - [Top 5 security vulnerabilities Cosmos Developers need to watch out for ](https://www.halborn.com/blog/post/top-5-security-vulnerabilities-cosmos-developers-need-to-watch-out-for)
 
 
-### Architecture (Devs 101)
+### Architecture
 
 #### `crosschain` module
 
@@ -468,7 +510,7 @@ The fungible module on ZetaChain is used to facilitate the interaction and integ
 - Adds a block header to the store, based on majority voting by observers.
 
 
-### Security Model (Auditors 101)
+### Security Model
 
 ZetaChain is a Proof of Stake (PoS) blockchain, which can connect to any external blockchain or layer in a decentralized, trustless, permissionless way - without a single point of failure.
 
@@ -493,29 +535,23 @@ The ZetaChain architecture consists of validators, observers, and signers.
 
 **Decentralized Transaction Signing: In a distributed fashion, mutating states on external blockchains is authenticated & secured by leaderless Threshold Signature Scheme (TSS)**
 - Zetachain's TSS is forked from [Binance](https://github.com/bnb-chain/tss-lib)
+  - Previously Known Issues : [CVE-2022-47930](https://www.cve.org/CVERecord?id=CVE-2022-47930) , [CVE-2022-47931](https://www.cve.org/CVERecord?id=CVE-2022-47931) , [CVE-2023-26556](https://www.cve.org/CVERecord?id=CVE-2023-26556) , [CVE-2023-26557](https://www.cve.org/CVERecord?id=CVE-2023-26557)
+  - Affected Projects by Binance TSS Lib Vulnerability : [Thorchain Halt](https://twitter.com/THORChain/status/1691793526382789044)
 - Hold standard ECDSA/EdDSA keys for interacting with external chains.
 - Keys are distributed in a way that a supermajority is needed to sign on behalf of ZetaChain.
 - Ensure that no single entity can sign messages on behalf of ZetaChain to external chains.
 - Bonded stakes, coupled with positive/negative incentives, ensure economic safety.
 - The decentralized transaction signing process initiates smart contract actions in a way that does not reveal any secrets to participating nodes. This is what makes non-smart chain connectivity possible.
 
+### Tools for static analysis (Auditors & Devs 101)
 
-### Similar protocols
-
-Besides everything mentioned, Zetachain is similar to any other Ethermint-enabled Cosmos chain.
-
-Ethermint enabled just means that there are two chains, one is the actual cosmos chain, which is Zetachain in this case.
-
-The other is an EVM-compatible chain, which is called EVM.
-
-The most notable similar example is the Cronos chain, where Cronos chain is the EVM compatibility layer chain (aka the zEVM), and the crypto.com chain is the actual cosmos chain behind the Cronos chain.
-
-#### Further reading
-- [Ethermint](https://docs.ethermint.zone/)
-- [Cosmos Developer Portal](https://tutorials.cosmos.network)
-- [Cosmos SDK](https://docs.cosmos.network/)
-- [IBC](https://ibc.cosmos.com/)
-- [CometBFT](https://docs.cometbft.com/)
-- [Cosmos Hub](https://hub.cosmos.network/)
-- [CosmWasm](https://docs.cosmwasm.com/docs/1.0/)
-- [Cosmology](https://cosmology.tech/learn)
+- [CodeQL](https://github.com/crypto-com/cosmos-sdk-codeql/tree/main)
+  - For static analysis
+- [Gosec](https://github.com/cosmos/gosec)
+- [ErrCheck](https://github.com/kisielk/errcheck)
+- [StaticCheck](https://staticcheck.io/)
+- [Go Vet](https://golang.org/cmd/vet/)
+- [Go Report Card](https://goreportcard.com/)
+- [Semgrep](https://github.com/trailofbits/semgrep-rules)
+- [Golangci-lint](https://github.com/golangci/golangci-lint)
+- [Go Exploit](https://vulncheck.com/blog/go-exploit)
