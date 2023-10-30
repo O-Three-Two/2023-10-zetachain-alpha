@@ -155,8 +155,6 @@ Further reading:
 - [A developer's guide to building secure applications on Cosmos](https://www.zellic.io/blog/exploring-cosmos-a-security-primer)
 
 
-
-
 #### Why would you use omni chain contracts?
 
 Any EVM smart contract you were thinking about making multi-chain could be an omni chain contract.
@@ -166,10 +164,6 @@ The most significant benefit comes from deploying and interacting with the main 
 You're managing one application instead of managing five applications, right? 
 
 It also allows you to streamline the user experience a little bit; the user may not need to jump between four or five different chains to do something.
-
-#### TBD
-
- when you're transferring value, instead of locking assets in a vault like in the wormhole or the recent Ronin incident and then having some synthetic asset on the other destination that's backed by that, leaving all of that vault at risk. For us, it looks more like a two-sided swap. So you would swap X for data that's burned, and then on the destination that's minted, and then traded for your target asset. But to a user, it's really just all that's kind of managed in the background by app developers and the zeta chain. So to user, all you're doing is just sending a transaction, and you get the result. What, whether that's interacting with a smart contract, sending data, transferring value. So often, it's super simple from a user standpoint, and then yeah, and then we just have like a really seamless developer experience that does not put much of the security burden or development burden on them. At the same time, we have the infinite creativity ceiling of a general smart contract platform.
 
 #### Summary
 
@@ -185,9 +179,9 @@ So, in a summary omni chain smart contracts are different from cross chain messa
 
 ### Architecture
 
-#### Modules
+#### `crosschain` module
 
-##### `crosschain` module overview
+##### Overview
 
 The `crosschain` module manages cross-chain transactions through a network of observers and a systematic voting process. 
 
@@ -240,9 +234,9 @@ This structure is used to secure and accurately execute transactions across diff
 - The module's state includes lists of outbound transactions, chain nonces, last chain heights, cross-chain transactions, and a mapping between inbound transactions and CCTXs.
 - Also stores the TSS key and observer-submitted gas prices on connected chains.
 
-##### `crosschain` module messages
+##### Messages
 
-The `cross-chain` module uses a variety of messages for managing cross-chain transactions and network operations. These messages involve various functionalities like tracking transactions, voting mechanisms, managing gas prices, and working with TSS (Threshold Signature Scheme) keys.
+The `crosschain` module uses a variety of messages for managing cross-chain transactions and network operations. These messages involve various functionalities like tracking transactions, voting mechanisms, managing gas prices, and working with TSS (Threshold Signature Scheme) keys.
 
 ![](https://imgur.com/jgxmuR2.png)
 
@@ -293,6 +287,156 @@ Explanation:
 **9. MsgUpdateTssAddress:**
 - Used for updating TSS addresses.
 - Contains details like the creator and the TSS public key.
+
+#### `emissions` module
+
+The emissions module is pivotal in ensuring fair and timely reward distribution to various network participants, which is fundamental for the network security and incentivization.
+The current focus on rewarding validators every block, with TSS signers and observers having their rewards accumulated, suggests a prioritization that might reflect the network's operational or security strategies.
+
+![](https://i.imgur.com/WzttDLB.png)
+
+
+**Functionality:**
+
+**1. Rewards Distribution:**
+
+- Currently, the module distributes rewards only to validators for each block they validate.
+- Rewards for TSS signers and observers, though accumulated, are not distributed immediately but stored in their respective pools.
+
+**2. Implementation:**
+
+The distribution mechanism of these rewards is executed during the 'begin blocker' stage of block processing.
+
+**3. Parameters Tracking:**
+- The module maintains several key parameters to calculate the rewards effectively:
+    - Maximum Bond Factor: Likely a parameter determining the upper limit of bonding (staking) rewards.
+    - Minimum Bond Factor: Sets the lower limit for bonding rewards.
+    - Average Block Time: The typical time taken for a new block creation in the blockchain.
+    - Target Bond Ratio: Desired ratio of bonded (staked) tokens to the total token supply, for stability and security.
+    - Validator Emission Percentage: Percentage of total rewards designated for validators.
+    - Observer Emission Percentage: Share of total rewards allocated to observers.
+    - TSS Signer Emission Percentage: Portion of rewards given to participants in the TSS.
+    - Duration Factor Constant: Possibly a factor used in calculating rewards based on time or duration of certain activities.
+
+
+#### `fungible` module
+
+##### Overview
+
+![](https://imgur.com/0iZH71o.png)
+
+The fungible module on ZetaChain is used to facilitate the interaction and integration of fungible tokens from external chains within the ZetaChain ecosystem. Its primary functions and state management are outlined below:
+
+
+**1. Deployment of "Foreign" Coins:**
+- The module enables the introduction and deployment of fungible tokens from connected blockchains (referred to as "foreign coins") onto the ZetaChain platform.
+- These foreign coins are represented and managed as ZRC20 tokens within ZetaChain.
+
+**2. ZRC20 Contract Deployment and Management:**
+
+- Upon deploying a foreign coin on ZetaChain, the corresponding ZRC20 contract is created.
+- This process includes creating a liquidity pool for the foreign coin, adding liquidity to this pool, and then listing the foreign coin in the module's register of managed tokens.
+
+**3. Integration with System Contracts and Uniswap:**
+- The module supports deploying key system contracts and functionalities such as Uniswap and wrapped ZETA (a representation of ZetaChain's native token on external chains).
+- These integrations are crucial for enabling seamless liquidity and exchange functionalities within the ZetaChain ecosystem.
+
+**4. Omnichain Smart Contract Interactions:**
+- The module allows for the depositing of ZRC20 tokens to omnichain smart contracts.
+- It supports specific functionalities like DepositZRC20AndCallContract and DepositZRC20, enabling ZRC20 tokens to interact across different chains via ZetaChain.
+
+**5. System Contract Address:**
+- Stores the address of the primary system contract, which is central to the module's operations and integrations across the ZetaChain and other connected blockchains.
+
+**6. Registry of Foreign Coins:**
+- Maintains a comprehensive list of all foreign coins that have been deployed on ZetaChain.
+
+##### Messages
+
+![](https://i.imgur.com/gd9yms3.png)
+
+**1. MsgDeployFungibleCoinZRC20**
+- Deploys a fungible coin from a connected chain as a ZRC20 token on ZetaChain.
+- Process:
+    - For gas coins: Deploys a ZRC20 contract, sets the contract address in the system contract, mints ZETA tokens to the module account, updates the gas pool, and adds liquidity.
+    - For non-gas coins: Deploys a ZRC20 contract and adds the coin to the foreign coins list.
+- Admin policy account only.
+  
+**2. MsgRemoveForeignCoin**
+- Removes a coin from the list of foreign coins.
+- Admin policy account only.
+
+**3. MsgUpdateSystemContract**
+- Updates the address of the system contract.
+
+**4. MsgUpdateZRC20WithdrawFee**
+- Adjusts the withdrawal fee for a specific ZRC20 token.
+
+**5. MsgUpdateContractBytecode**
+- Updates a contract’s bytecode (limited to ZRC20 or WZeta connector contracts).
+- New bytecode must maintain the same storage layout as the original, allowing for new variables but not the removal of existing ones.
+
+**6. MsgUpdateZRC20PausedStatus**
+- Changes the paused status of one or more ZRC20 tokens.
+
+#### `observer` module
+
+#### Overview
+
+**Key functionality**
+
+- Tracks voting ballots.
+- Maintains a mapping between blockchain chains and observer accounts.
+- Records a list of supported connected chains.
+- Manages various parameters including:
+    - Core Parameters: Contract addresses, outbound transaction schedule intervals, etc.
+    - Observer Parameters: Ballot threshold, minimum observer delegation, etc.
+    - Admin Policy Parameters.
+
+**Ballots Management:**
+- For voting on inbound (incoming) and outbound (outgoing) transactions.
+- Includes Create, Read, Update, and Delete (CRUD) actions for ballots, along with functions to verify ballot finalization.
+
+**Integration in Other Modules:**
+- The ballot system is integral to modules like the crosschain module, where it is used by observer validators in voting on transactions.
+
+**Role of Observer Validators:**
+- These validators operate both zetaclient and zetacore
+- They have the authority to vote on inbound and outbound cross-chain transactions.
+
+**Chain-Observer Account Mappings:**
+- Set during the network's genesis.
+- Critical in the crosschain module to identify and authorize observer validators for transactions associated with particular connected chains.
+
+#### Messages
+
+![](https://i.imgur.com/7RDC0RR.png)
+
+**1. MsgAddObserver**
+- Adds a new observer to the store.
+- Resets keygen.
+- Pauses inbound transactions for new TSS generation.
+- Requires an admin policy account.
+
+**2. MsgUpdateCoreParams**
+
+- Updates core parameters for a specific chain (e.g., confirmation count, transaction schedule interval, contract addresses).
+- Throws error if the chain ID isn't supported.
+- Limited to the admin policy account.
+
+**3. MsgAddBlameVote**
+- Used to add a blame vote, indicating fault or error.
+
+**4. MsgUpdateCrosschainFlags**
+- Updates flags related to crosschain operations (e.g., enabling/disabling inbound/outbound transactions, gas price increase flags).
+- Restricted to the admin policy account.
+
+**5. MsgUpdateKeygen**
+- Updates the block height for key generation and sets status to "pending keygen".
+- Requires an admin policy account.
+
+**6. MsgAddBlockHeader**
+- Adds a block header to the store, based on majority voting by observers.
 
 ### Similar protocols
 
