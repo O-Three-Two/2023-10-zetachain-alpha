@@ -107,6 +107,35 @@ CCM is suitable for applications requiring unidirectional, asynchronous interact
 - The CCM approach might involve more transactions and higher gas costs than other methods.
 - It's an effective method for applications where complex, chain-specific transactions and states are not central concerns.
 
+##### Gas fees when using cross-chain messaging
+
+Fees are paid in ZETA tokens, which are transferred to a Connector contract on a participating blockchain. These fees are used for:
+1. Validator/Staker/Ecosystem Pools: Rewarding those who maintain the network.
+2. Gas on Destination Chain: Covering the transaction costs on the recipient blockchain.
+
+When sending a cross-chain message you're paying two types of fees:
+1. Outbound Gas Fee:
+    - Depends on the destination chain’s gas prices, the user-set gas limit, and token prices in ZetaChain's liquidity pools.
+    - It's calculated dynamically.
+2. Protocol Fee:
+    - A fixed value as per ZetaChain’s source code.
+3. Example Fee Structure
+    - Fees are in ZETA tokens, specific to the destination chain.
+    - Calculated based on a gas limit of 500,000.
+4. Approaches to Paying Fees
+    - Sending ZETA to the Connector:
+      - Users must have sufficient ZETA and approve the transaction.
+      - Example: sendMessage function where users transfer ZETA to the connector contract.
+    - Pay With ZETA From the Contract:
+      - Easier for users as they don’t need ZETA.
+      - More complex for developers; requires the contract to have enough ZETA.
+      - Example: sendMessage where the contract handles ZETA payment.
+    - Pay With Any Token and Swap to ZETA:
+      - More complex due to the need for a swapping mechanism and handling market prices.
+      - Convenient for users; can use any token, with ZETA conversion happening in the background.
+      - Utilize functions like getZetaFromEth for swapping.
+      - Example: sendMessage where any token is accepted and internally swapped for ZETA.
+
 #### Omni chain contracts (for new applications)
 
 ##### Overview:
