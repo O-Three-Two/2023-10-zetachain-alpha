@@ -1,8 +1,8 @@
 ## Content
 
-[Auditor 101](./101-auditing/README.md)
-[Dev 101](./101-dev/README.md)
-[Hacks / Vulnerabilities](./vulnerabilities/README.md)
+[101 Zetachain](./101-zetachain.md)
+[101 Dev](./101-dev.md)
+[101 Security](./101-security.md)
 
 ## Contributions
 
