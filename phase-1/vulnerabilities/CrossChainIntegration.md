@@ -26,10 +26,10 @@
 - *Deflation* would result in funds be impossible to withdraw. 
 
 #### Input Validation 
-- Coming up with an untamperable and source of truth between both blockchains is difficult. Rigoriously checking the inputs is cruicial. 
+- Coming up with an untamperable and source of truth between both blockchains is difficult. Rigoriously checking the inputs is crucial. 
 - If a user sends a token with the same name and same symbol as a token to a different chain, it should not be valid. It should be based upon the address. 
     - https://twitter.com/PlasmaPower0/status/1582176532985880576
-- Every input being provided by the user should not verified to ensure there is no trickery occuring. 
+- Every input being provided by the user should not verified to ensure there is no trickery occurring. 
 - https://rekt.news/thorchain-rekt/
 - https://medium.com/immunefi/aurora-improper-input-sanitization-bugfix-review-a9376dac046f
 
