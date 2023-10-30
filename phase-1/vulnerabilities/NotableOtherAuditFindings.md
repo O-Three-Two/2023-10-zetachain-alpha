@@ -24,7 +24,7 @@
 ### Isolating Host Zone Operations - Stride by Informal Systems
 - Right now, all zones are tightly coupled. If one zone fails, then all of the other zones fail as well. With a lot of code, this is a major risk. 
 - Stride plans to expand to 50 host zones in the future. 
-- Isolation of these zones should be peformed in case issues arise. 
+- Isolation of these zones should be performed in case issues arise. 
 - IF-STRIDE-STAKEIBC-ZONEISOLATION: https://github.com/informalsystems/audits/blob/main/Stride/2022-11-30%20Audit%20Report%20-%20Stride%20StakeIBC%20ICACallbacks.pdf
 
 
@@ -37,7 +37,7 @@
 
 ### Incorrect Tick Boundary - Osmosis by OtterSec
 - The Osmosis liquidity ticks are inclusive on the lower end and not inclusive on the upper end. [lowerTick, upperTick)
-- The actually if statement for this check was using a ``<=`` instead of a ``<``. This resulted in the bounds being *inclusive* on the upper end. 
+- The if statement for this check was using a ``<=`` instead of a ``<``. This resulted in the bounds being *inclusive* on the upper end. 
 - This has several consequences. First, a user may provide liquidity outside of the expected range, which violates slippage protections. Second, liquidity could be added to the currentTick incorrectly. 
 - Osmosis: https://ottersec.notion.site/Sampled-Public-Audit-Reports-a296e98838aa4fdb8f3b192663400772
 
