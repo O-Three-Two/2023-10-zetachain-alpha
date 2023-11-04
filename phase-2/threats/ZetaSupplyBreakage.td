@@ -1,0 +1,20 @@
+__Zeta Supply Breakage__
+- Missing burn
+- Missing mint 
+- Double burning
+- Double minting
+- Usage of wrong asset
+- Stuck funds
+    - Bad sender address
+    - Bad event handling 
+- Dropping of event permanently 
+- Reverting on the ``zetaRevert`` handler.
+- Coin confusion 
+- Broken relayers 
+- Shut down blockchains 
+- Reorganizations
+- Rounding
+- Improper decimals 
+- Oracle issues
+    - Manipulation 
+    - Broke/down 
