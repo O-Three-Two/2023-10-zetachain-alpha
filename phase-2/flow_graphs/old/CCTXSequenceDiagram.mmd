@@ -1,0 +1,27 @@
+
+
+sequenceDiagram
+
+    Actor User 
+    participant EvmChain1
+    participant Observer 
+    participant Zetachain 
+    participant EvmChain2
+
+    User->>EvmChain1: Calls smart contract
+    EvmChain1->>EvmChain1: Emit zetaSend event 
+    Observer->>EvmChain1: Observes zetaSend event
+    loop Until quorum
+        Observer->>Zetachain: Vote on zetaSend event occurence
+    end
+    Zetachain->>Zetachain: Emit inbound tx voting succeeded
+    Zetachain->>Observer: Observes inbound tx voting succeeded 
+    Observer->>Observer: TSS Signing of CCTX event 
+    Observer->>EvmChain2: TSS Send to EVM chain 
+    EvmChain2->>EvmChain2: Emit ZetaReceived event
+    Observer->>EvmChain2: Observes zetaReceived event
+    loop Until quorum
+        Observer->>Zetachain: Vote on outbound tx occurence
+    end
+    Zetachain->>Zetachain: Emit outbound tx voting succeeded
+

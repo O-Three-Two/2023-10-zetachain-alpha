@@ -1,0 +1,21 @@
+
+
+sequenceDiagram
+
+    Actor User 
+    participant zEVM 
+    participant ZRC20
+    participant Observer 
+    participant Zetachain 
+    participant ConnectorChain2
+
+    User->>Zetachain: Calls contract to withdraw funds 
+    Zetachain->>ZRC20: Withdraw is called. Emits an event. 
+    Zetachain->>Zetachain: Creates a new outbound transaction
+    Observer->>Observer: TSS Signing ceremony
+    Observer->>ConnectorChain2: Call ConnectorChain2 
+    ConnectorChain2->>SmartContractChain2: onCrossChainCall is called on app
+    loop Until quorum
+        Observer->>Zetachain: Vote on transfer event occurence
+    end
+    Zetachain->>Zetachain: Emit outbound tx voting succeeded

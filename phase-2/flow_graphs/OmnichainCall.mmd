@@ -1,0 +1,20 @@
+
+
+sequenceDiagram
+
+    Actor User 
+    participant Observer 
+    participant ChainTSSAddress
+    participant Zetachain 
+    participant zEVM 
+    participant ZRC20
+
+    User->>ChainTSSAddress: Directly sends funds to TSS address with 'data' attached.
+    Observer->>ERC20Custody: Observes received value event
+    loop Until quorum
+        Observer->>Zetachain: Vote on deposit event occurence
+    end
+    Zetachain->>zEVM: Call depositAndCall on System Contract 
+    zEVM->>ZRC20: Transfer value via deposit on ZRC20
+    zEVM->>OmnichainContract: Call onCrossChainCall function with 'data'
+    Zetachain->>Zetachain: Emit inbound tx voting succeeded

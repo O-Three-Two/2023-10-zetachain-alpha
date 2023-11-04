@@ -1,0 +1,21 @@
+
+
+sequenceDiagram
+
+    Actor User 
+    participant SmartContract1
+    participant ERC20Custody
+    participant Observer 
+    participant Zetachain 
+    participant zEVM 
+    participant ZRC20
+
+    User->>SmartContract1: Calls smart contract
+    SmartContract1->>ERC20Custody: Calls deposit on contract with TSS as owner
+    Observer->>ERC20Custody: Observes received value event
+    loop Until quorum
+        Observer->>Zetachain: Vote on deposit event occurence
+    end
+    Zetachain->>zEVM: Call deposit on SystemContract
+    zEVM->>ZRC20: Direct funds to the receiver address
+    Zetachain->>Zetachain: Emit inbound tx voting succeeded

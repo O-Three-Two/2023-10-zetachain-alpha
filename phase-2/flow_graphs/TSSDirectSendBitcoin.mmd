@@ -1,0 +1,20 @@
+
+
+sequenceDiagram
+
+    Actor User1
+    participant Chain1TSS
+    participant Observer 
+    participant Zetachain 
+    participant Chain2TSS
+    participant User2 
+
+    User1->>Chain1TSS: Send native funds to TSS address with two receiver and 
+    Observer->>Chain1TSS: Observes funds received
+    loop Until quorum
+        Observer->>Zetachain: Vote on funds zetaSend event occurence
+    end
+    Zetachain->>zEVM: Call deposit on SystemContract
+    zEVM->>ZRC20: Direct funds to the receiver address
+    Zetachain->>Zetachain: Emit inbound tx voting succeeded
+
