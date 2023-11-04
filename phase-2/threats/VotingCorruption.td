@@ -1,0 +1,27 @@
+__Voting System Compromise__
+- Sybil attacks
+    - Unweighted voters
+    - Arbitrary creation of voters
+- Improper weighting of voters 
+- Improper counting 
+    - [ ] Evenly distributed power
+- Bad multi-step logic
+- Censorship
+- Voter creation
+    - [ ] Only possible via admin
+- Removal of bad voters 
+- Insufficent slashing protections
+    - [x] MsgAddBlameVote message
+- Nonce handling 
+    - TSS nonce 
+    - Individual voters 
+- Centralization risks
+    - Private key compromise
+        - [x] TSS key ownership
+        - [x] Only admin can redistribute keys
+    - Compromised admin breaks process
+    - Missing gov process
+- Double vote submission
+- Vote forgery 
+- Vote modification 
+- Strategic timing of votes leads to manipulation
