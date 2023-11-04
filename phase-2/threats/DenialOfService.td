@@ -1,0 +1,28 @@
+__Denial of Service__
+- Zetachain DoS
+    - Infinite loops
+    - Divide by 0
+    - Nil pointer dereferencing
+    - Other Panics 
+    - Bad voting logic
+    - Insecure message access
+    - Resource exhaustion 
+    - Logging truncation 
+    - Out of sync nonce
+    - Lack of evidence on slashing 
+    - Improper node management
+    - Block stuffing 
+- Observer/Signer DoS
+    - Infinite loops
+    - Divide by 0
+    - Nil pointer dereferencing
+    - Other Panics 
+    - Resource exhaustion 
+    - Offline observers/signers
+    - Signing process bad logic
+    - Large data events 
+    - Overload on events
+    - Overload on signers 
+    - Network lag
+    - Nonce updating
+    - Improper node management
