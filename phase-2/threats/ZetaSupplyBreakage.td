@@ -9,7 +9,7 @@ __Zeta Supply Breakage__
     - Bad event handling 
 - Dropping of event permanently 
 - Reverting on the ``zetaRevert`` handler.
-- Coin confusion 
+- Coin/Denom confusion 
 - Broken relayers 
 - Shut down blockchains 
 - Reorganizations
