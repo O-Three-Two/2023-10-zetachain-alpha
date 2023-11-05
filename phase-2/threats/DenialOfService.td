@@ -10,6 +10,7 @@ __Denial of Service__
     - Logging truncation 
     - Out of sync nonce
     - Lack of evidence on slashing 
+    - Lack of gas tokens between EVM & zEVM
     - Improper node management
     - Block stuffing 
 - Observer/Signer DoS
