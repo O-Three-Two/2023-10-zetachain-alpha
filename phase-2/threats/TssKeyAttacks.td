@@ -5,31 +5,31 @@ __Compromise TSS Keys__
       - The encoding scheme uses a simple concatenation method with a '$' delimiter
       - Or there is no safeguard against input tuples that only differ by the position of the delimiter
     + The collision vulnerability must not have been patched
-      - [ ] The existence of a security patch would prevent the exploit
+      - [X] The existence of a security patch would prevent the exploit
   - Forge signatures or extract private keys due to reduced proof iterations
-    + Requires the number of dlnproof iterations to be significantly reduced
+    + Requires the number of iterations to be significantly reduced
     + And assumes that the attacker can perform enough trials quickly
       - There are insufficient rate-limiting measures on the network
       - Or the proofs do not require a computationally intensive process to generate
     + The TSS must be running the optimized code in a production environment
-      - [ ] A strong review and audit process might prevent this condition from being true
+      - [X] A strong review and audit process might prevent this condition from being true
 - Bypass the proof of knowledge in a TSS system with a larger challenge space
   + A condition where the challenge space is increased without rigorous proof of security
   + This might lead to potential side-channel attacks
-    - [ ] However, an effective side-channel defense mechanism prevents it
+    - [X] However, an effective side-channel defense mechanism prevents it
   + But only if the challenge is not randomly generated or is somehow predictable
     - Which assumes the random number generator (RNG) is compromised or predictable
 - Intercept or manipulate the secret shares during the reshare protocol
-  + t+1 old parties must not detect the manipulation of their additive secret sharing
+  + Old parties must not detect the manipulation of their additive secret sharing
   + An attacker might try to intercept or alter the values
-    - [ ] Robust encryption and integrity checks on the secret shares prevent this
+    - [X] Robust encryption and integrity checks on the secret shares prevent this
   + Alternatively, the attacker may attempt to insert a compromised share during the reshare
-    - This assumes that the VSS commitments are not properly validated by new parties
-      - [ ] Proper commitment validation and verification protocols are essential to mitigate this risk
+    - This assumes that the commitments are not properly validated by new parties
+      - [X] Proper commitment validation and verification protocols are essential to mitigate this risk
 - Exploit potential weaknesses in the generation of new  keys by new parties
   + Although considered less relevant, the generation and verification of new  keys might have vulnerabilities
   + If the new  key generation process is flawed, it could be exploited
-    - [ ] However, this would be mitigated by the new parties performing robust verifications
+    - [X] However, this would be mitigated by the new parties performing robust verifications
   + The attacker needs to manipulate the public key verification process
     - [ ] Assuming the attacker can influence the verification process or the random number generator used
 - Exploit the lack of session-specific information to replay and spoof messages
