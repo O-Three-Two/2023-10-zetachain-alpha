@@ -21,6 +21,7 @@ __Insecure User Integrations__
     - Arbitrary action controller 
     - Missing input validation
     - Token decimal issues 
+    - Silent failures on the system
 - Hardcoded Values
     - TSS address
     - ZRC20 Addresses
