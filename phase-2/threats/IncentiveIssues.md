@@ -1,0 +1,22 @@
+__Incentive Issues__
+- Liveliness
+    - Lack of necessary slashing
+        - [ ] Some is implemented
+    - Lack of needed fraud proof type
+- Rewards not enough 
+to sustain costs
+- Gas costs higher than anticipated
+    - [x] Constant gas price voting
+- Too many failed transactions
+- Node Collusion
+    - [ ] Decentralized entities 
+- Bribery
+    - Censorship
+        - [x] Voting mechanism
+    - Ordering of transactions
+- Network spam 
+    - [x] Integration network gas costs
+- Frontrunning for profit
+- Skipping of functionality for cost 
+- Unnecessary gas usage
+- Missing owner (zeta) revenue
