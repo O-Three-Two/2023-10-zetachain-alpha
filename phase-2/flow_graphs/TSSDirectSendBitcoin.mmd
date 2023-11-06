@@ -6,8 +6,6 @@ sequenceDiagram
     participant Chain1TSS
     participant Observer 
     participant Zetachain 
-    participant Chain2TSS
-    participant User2 
 
     User1->>Chain1TSS: Send native funds to TSS address with two receiver and 
     Observer->>Chain1TSS: Observes funds received
@@ -15,6 +13,6 @@ sequenceDiagram
         Observer->>Zetachain: Vote on funds zetaSend event occurence
     end
     Zetachain->>zEVM: Call deposit on SystemContract
-    zEVM->>ZRC20: Direct funds to the receiver address
+    zEVM->>ZRC20: Direct funds to the receiver address of User2
     Zetachain->>Zetachain: Emit inbound tx voting succeeded
 
