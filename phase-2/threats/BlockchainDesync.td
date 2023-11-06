@@ -1,0 +1,38 @@
+__Blockchain Desync__
+- Bitcoin
+    - Misintepretting outputs
+        - Funds 
+        - Sender
+        - Receiver 
+        - Scripts 
+    - Output Types 
+    - Input types
+    - ABI Encoding 
+- Ethereum
+    - Misintepretting event logs
+        - Funds
+        - Receiver 
+        - Sender 
+        - DelegateCall 
+    - Wrong source 
+        - [x] Connector address filtered
+    - ERC20 issues
+- zEVM: 
+    - System address filtering
+        - [x] Address is checked 
+    - ZRC20 Integration 
+    - Native asset spoofing
+- Reorganizations
+    - [x] Confirmation buffer window
+- Long block delays
+- Cryptography
+    - Merkle proof verification
+    - Signature recovery 
+    - Replay 
+    - Nonce desync 
+- Bad RPC
+- Number issues
+    - Overflows
+    - Underflows
+    - Truncation
+    - Signness conversions
