@@ -34,5 +34,5 @@ __Blockchain Desync__
 - Number issues
     - Overflows
     - Underflows
-    - Truncation
+    - Truncation/Rounding
     - Signness conversions
