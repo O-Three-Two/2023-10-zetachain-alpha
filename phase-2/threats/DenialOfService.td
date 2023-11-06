@@ -25,5 +25,6 @@ __Denial of Service__
     - Overload on events
     - Overload on signers 
     - Network lag
+    - Incorrect confirmation time check
     - Nonce updating
     - Improper node management
